@@ -12,13 +12,21 @@ struct Task {
     var title: String
     var description: String
     var color: UIColor
+    
+    var subtaks: [String]
+    
     var isActive: Bool
+    var isCurrent: Bool
     
     init(symbol: String = "🦦", title: String = "Test", description: String = "MIC CHECK 1-2", color: UIColor = .blue, isActive: Bool = true) {
         self.symbol = symbol
         self.title = title
         self.description = description
         self.color = color
+        
+        self.subtaks = [String]()
+        
         self.isActive = isActive
+        self.isCurrent = false
     }
 }
