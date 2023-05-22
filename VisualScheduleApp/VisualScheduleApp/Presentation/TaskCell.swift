@@ -41,16 +41,18 @@ class TaskCell: UITableViewCell {
         subtaskTableView.delegate = self
     }
     
-    func setColor(_ color: UIColor) {
+    func setColor(_ taskColor: String) {
         //descriptionLabel.isHidden.toggle()
         //subtaskTableView.isHidden = true
-        background.backgroundColor = color.withAlphaComponent(0.5)
+        //background.backgroundColor = color.withAlphaComponent(0.5)
+        print(taskColor)
+        background.backgroundColor = UIColor(named: taskColor)
         emojiBackground.layer.borderWidth = 0
-        emojiBackground.layer.borderColor = color.cgColor
+        //emojiBackground.layer.borderColor = color.cgColor
         //emojiBackground.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
         //emojiBackground.backgroundColor = color.withAlphaComponent(0.1)
         //background.layer.cornerRadius = background.frame.height / 2
-        emojiBackground.backgroundColor = UIColor.label
+        //emojiBackground.backgroundColor = UIColor.label
     }
     
     func rotateImage(_ expanded: Bool) {

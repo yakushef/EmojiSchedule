@@ -7,18 +7,37 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TaskListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var taskStorage: TaskStorageService!
     var isReallyExpaded = false
     
-    var currentTasks: [Task] = [Task(symbol: "🐿️" ,color: .red), Task(symbol: "🦫", color: .orange), Task(description: "sdfkhsdkhbfksj \n skjefhlksdf \n skjfhkdl", color: .systemYellow), Task(symbol: "🦔", color: .systemMint)]
+    var currentTasks: [Task] = []//[Task(symbol: "🐿️" ,color: .red), Task(symbol: "🦫", color: .orange), Task(description: "sdfkhsdkhbfksj \n skjefhlksdf \n skjfhkdl", color: .systemYellow), Task(symbol: "🦔", color: .systemMint)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        //tableView.rowHeight = UITableView.automaticDimension
+        
+        // MARK: - User Defaults
+        taskStorage = TaskStorageServiceImplementation()
+        taskStorage.firstRunCheck()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateTasks()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editor" {
+            guard let viewController = segue.destination as? EditTaskViewController, let indexPath = sender as? IndexPath else { return }
+            viewController.editedTask = currentTasks[indexPath.row]
+            viewController.taskNumber = indexPath.row
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
     }
     
     //MARK: CELL GONFIG
@@ -41,9 +60,15 @@ class ViewController: UIViewController {
         cell.topLine.isHidden = { indexPath.row == 0 }()
         cell.bottomLine.isHidden = { indexPath.row == currentTasks.count - 1 }()
     }
+    
+    private func updateTasks() {
+        currentTasks = taskStorage.taskList
+        tableView.reloadData()
+    }
+    
 }
 
-extension ViewController: UITableViewDelegate {
+extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //return 100.0
         return UITableView.automaticDimension
@@ -51,10 +76,11 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "editor", sender: indexPath)
     }
 }
 
-extension ViewController: UITableViewDataSource {
+extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentTasks.count
     }
@@ -69,9 +95,10 @@ extension ViewController: UITableViewDataSource {
         
         return taskCell
     }
+
 }
 
-extension ViewController: TaskCellDelegate {
+extension TaskListViewController: TaskCellDelegate {
     func update() {
         tableView.beginUpdates()
     }
