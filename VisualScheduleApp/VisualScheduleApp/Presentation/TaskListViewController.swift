@@ -10,6 +10,7 @@ import UIKit
 class TaskListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
     var taskStorage: TaskStorageService!
     var isReallyExpaded = false
@@ -18,6 +19,10 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.isEditing = false
+        
+        //navigationController?.navigationItem.rightBarButtonItem = editButtonItem
         
         // MARK: - User Defaults
         taskStorage = TaskStorageServiceImplementation()
@@ -45,7 +50,7 @@ class TaskListViewController: UIViewController {
     func configureCell(cell: TaskCell, indexPath: IndexPath) {
         
         cell.delegate = self
-        cell.isExpanded = isReallyExpaded
+        //cell.isExpanded = isReallyExpaded
         
         let task = currentTasks[indexPath.row]
         
@@ -57,8 +62,11 @@ class TaskListViewController: UIViewController {
         cell.titleLabel.text = task.title
         cell.descriptionLabel.text = task.description
         
-        cell.topLine.isHidden = { indexPath.row == 0 }()
-        cell.bottomLine.isHidden = { indexPath.row == currentTasks.count - 1 }()
+        cell.isTop = { indexPath.row == 0 }()
+        cell.isBottom = { indexPath.row == currentTasks.count - 1 }()
+        cell.isRearranging = isEditing
+        
+        cell.configureTimeline()
     }
     
     private func updateTasks() {
@@ -99,27 +107,118 @@ extension TaskListViewController: UITableViewDataSource {
 }
 
 extension TaskListViewController: TaskCellDelegate {
+    
+    func reorderingCells(isActive: Bool) {
+        if isActive {
+           // tableview.reloadSections(IndexSet(integer: 0), with: .none)
+        } else {
+            
+        }
+    }
+    
+    
     func update() {
         tableView.beginUpdates()
     }
     
-    var isExpended: Bool {
-        get {
-            return isReallyExpaded
-        }
-        set {
-            isReallyExpaded = newValue
-        }
-    }
+//    var isExpended: Bool {
+//        get {
+//            return isReallyExpaded
+//        }
+//        set {
+//            isReallyExpaded = newValue
+//        }
+//    }
     
     func expandedSection(button: UIButton) {
-        isExpended = !isReallyExpaded
+        //isExpended = !isReallyExpaded
         print(button.tag)
         tableView.endUpdates()
-        //tableView.reloadRows(at: [IndexPath(row: button.tag, section: 0)], with: .automatic)
         
         //tableView.scrollToRow(at: IndexPath(row: button.tag, section: 0), at: .middle, animated: true)
         
+    }
+}
+
+//MARK: - EDITING
+
+extension TaskListViewController {
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.currentTasks[sourceIndexPath.row]
+        currentTasks.remove(at: sourceIndexPath.row)
+        currentTasks.insert(movedObject, at: destinationIndexPath.row)
+        //let cell = tableView.cellForRow(at: destinationIndexPath) as? TaskCell
+        //cell?.configureTimeline()
+        for j in 0..<tableView.numberOfRows(inSection: 0) {
+            let indexPath = IndexPath(row: j, section: 0)
+            let cell = tableView.cellForRow(at: indexPath) as? TaskCell
+            // call your function here
+            //cell?.isRearranging = isEditing
+            cell?.configureTimeline()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        
+        return true
+    }
+    
+    @IBAction func editMode() {
+        let editingState = !self.tableView.isEditing
+        self.setEditing(editingState, animated: true)
+        if !editingState {
+//            self.tableView.beginUpdates()
+//            for j in 0..<tableView.numberOfRows(inSection: 0) {
+//                let indexPath = IndexPath(row: j, section: 0)
+//                let cell = tableView.cellForRow(at: indexPath) as? TaskCell
+//                // call your function here
+//                cell?.isRearranging = isEditing
+//                cell?.configureTimeline()
+//            }
+//            self.tableView.endUpdates()
+            editButton.title = "Edit"
+            self.taskStorage.updateAllTasks(taskList: currentTasks)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+               // self.tableView.performBatchUpdates{
+                    self.tableView.beginUpdates()
+                 //   self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+                    for j in 0..<self.tableView.numberOfRows(inSection: 0) {
+                        let indexPath = IndexPath(row: j, section: 0)
+                        let cell = self.tableView.cellForRow(at: indexPath) as? TaskCell
+                        // call your function here
+                        cell?.isRearranging = self.isEditing
+                        cell?.isTop = { j == 0 }()
+                        cell?.isBottom = { j == self.currentTasks.count - 1 }()
+                        cell?.configureTimeline()
+                    }
+                    self.tableView.endUpdates()
+               // }
+            }
+        } else {
+            self.tableView.beginUpdates()
+            for j in 0..<tableView.numberOfRows(inSection: 0) {
+                let indexPath = IndexPath(row: j, section: 0)
+                let cell = tableView.cellForRow(at: indexPath) as? TaskCell
+                // call your function here
+                cell?.isRearranging = isEditing
+                cell?.configureTimeline()
+            }
+            self.tableView.endUpdates()
+            editButton.title = "Done"
+        }
     }
 }
 

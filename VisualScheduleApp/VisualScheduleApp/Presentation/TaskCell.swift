@@ -10,14 +10,14 @@ import UIKit
 protocol TaskCellDelegate: AnyObject {
     func update()
     func expandedSection(button: UIButton)
-    var isExpended: Bool { get set }
+    func reorderingCells(isActive: Bool)
+  //  var isExpended: Bool { get set }
 }
 
 class TaskCell: UITableViewCell {
     
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var emojiBackground: UIView!
-    
     
     @IBOutlet weak var topLine: UIView!
     @IBOutlet weak var bottomLine: UIView!
@@ -29,7 +29,10 @@ class TaskCell: UITableViewCell {
     @IBOutlet weak var subtaskTableView: UITableView!
     @IBOutlet weak var collapseButton: UIButton!
     
-    var isExpanded = false
+    var isExpanded = true
+    var isTop = false
+    var isBottom = false
+    var isRearranging = false
     
     weak var delegate: TaskCellDelegate?
     
@@ -39,30 +42,56 @@ class TaskCell: UITableViewCell {
         subtaskTableView.backgroundColor = .clear
         subtaskTableView.dataSource = self
         subtaskTableView.delegate = self
+        //topLine.isHidden = true
+        //bottomLine.isHidden = true
+        topLine.alpha = 0
+        bottomLine.alpha = 0
+    }
+    
+    func configureTimeline() {
+        
+        
+        
+
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            if self.isRearranging {
+                //self.topLine.isHidden = true
+                self.topLine.alpha = 0
+                //self.bottomLine.isHidden = true
+                self.bottomLine.alpha = 0
+            } else if self.isTop {
+                //self.topLine.isHidden = true
+                self.topLine.alpha = 0
+                //self.bottomLine.isHidden = false
+                self.bottomLine.alpha = 1
+            } else if self.isBottom {
+                //self.topLine.isHidden = false
+                self.topLine.alpha = 1
+                //self.bottomLine.isHidden = true
+                self.bottomLine.alpha = 0
+            } else {
+                //self.topLine.isHidden = false
+                self.topLine.alpha = 1
+                //self.bottomLine.isHidden = false
+                self.bottomLine.alpha = 1
+            }
+        })
+
     }
     
     func setColor(_ taskColor: String) {
-        //descriptionLabel.isHidden.toggle()
-        //subtaskTableView.isHidden = true
-        //background.backgroundColor = color.withAlphaComponent(0.5)
-        print(taskColor)
+   //     print(taskColor)
         background.backgroundColor = UIColor(named: taskColor)
         emojiBackground.layer.borderWidth = 0
-        //emojiBackground.layer.borderColor = color.cgColor
-        //emojiBackground.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
-        //emojiBackground.backgroundColor = color.withAlphaComponent(0.1)
-        //background.layer.cornerRadius = background.frame.height / 2
-        //emojiBackground.backgroundColor = UIColor.label
     }
     
     func rotateImage(_ expanded: Bool) {
         if expanded {
-            //collapseButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
             UIView.animate(withDuration: 0.25, delay: 0, animations: {
                 self.collapseButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
             })
         } else {
-            //collapseButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.zero)
             UIView.animate(withDuration: 0.25, delay: 0, animations: {
                 self.collapseButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.zero)
             })
@@ -72,19 +101,10 @@ class TaskCell: UITableViewCell {
     @IBAction func collapseButtonTapped(_ sender: UIButton) {
         isExpanded.toggle()
         delegate?.update()
-        //subtaskTableView.isHidden.toggle()
         UIView.animate(withDuration: 0.25, delay: 0, animations: {
             self.subtaskTableView.isHidden.toggle()
         })
-       // subtaskTableView.reloadData()
-//        if isExpanded {
-//            subtaskTableView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-//        } else {
-//            subtaskTableView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-//        }
-        //descriptionLabel.text = isExpanded ? "srlkngnlf \n sdklgnlsdgklsdng\n kljnflsdg\neskldfngl\n" : "1"
         rotateImage(isExpanded)
-      //  delegate?.update()
         delegate?.expandedSection(button: sender)
     }
 }

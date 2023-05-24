@@ -221,10 +221,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Today's tasks" id="GXZ-kf-YFv">
-                        <barButtonItem key="leftBarButtonItem" title="routines" image="repeat.circle" catalog="system" id="I1K-Sz-Gvd">
-                            <color key="tintColor" systemColor="labelColor"/>
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="gdI-0A-sA9">
                             <connections>
-                                <segue destination="eeJ-k6-yKj" kind="show" id="Czq-Ft-dBC"/>
+                                <action selector="editMode" destination="BYZ-38-t0r" id="4hv-WX-uem"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="add" image="plus.circle" catalog="system" id="QoL-Ts-eSb">
@@ -235,6 +234,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="gdI-0A-sA9" id="9wK-zo-P4g"/>
                         <outlet property="tableView" destination="V5U-m8-x7H" id="BR6-Rj-l0q"/>
                         <segue destination="flv-mH-8fB" kind="show" identifier="editor" id="ZF5-lb-eMb"/>
                     </connections>
@@ -386,9 +386,8 @@
         <image name="arrowtriangle.down.fill" catalog="system" width="128" height="120"/>
         <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="plus.circle" catalog="system" width="128" height="123"/>
-        <image name="repeat.circle" catalog="system" width="128" height="123"/>
         <namedColor name="TaskMint">
-            <color red="0.62090367537757896" green="1" blue="0.76394473641279048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.61960784313725492" green="1" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

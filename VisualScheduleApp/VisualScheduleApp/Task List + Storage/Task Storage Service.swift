@@ -10,6 +10,8 @@ import UIKit
 protocol TaskStorageService {
     var taskList: [Task] { get }
     
+    func updateAllTasks(taskList: [Task])
+    
     func firstRunCheck()
     func add(task: Task)
     func remove(taskNumber: Int)
@@ -17,11 +19,21 @@ protocol TaskStorageService {
 }
 
 final class TaskStorageServiceImplementation: TaskStorageService {
+    
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let userDefaults = UserDefaults.standard
     private enum Keys: String {
         case task, position
+    }
+    
+    func updateAllTasks(taskList: [Task]) {
+        let newList = TaskList(tasks: taskList)
+        guard let data = try? encoder.encode(newList) else {
+            print("error while encoding tasks for storage")
+            return
+        }
+        userDefaults.set(data, forKey: Keys.task.rawValue)
     }
     
     var taskList: [Task] {
