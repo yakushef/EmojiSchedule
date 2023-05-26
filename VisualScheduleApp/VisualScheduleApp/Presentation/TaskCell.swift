@@ -39,6 +39,15 @@ class TaskCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.alpha = 1
+        
+        let clearView = UIView()
+        clearView.backgroundColor = .clear
+        //backgroundView = clearView
+        //backgroundView = blurView
+        
         subtaskTableView.backgroundColor = .clear
         subtaskTableView.dataSource = self
         subtaskTableView.delegate = self
@@ -48,14 +57,12 @@ class TaskCell: UITableViewCell {
         bottomLine.alpha = 0
     }
     
-    func configureTimeline() {
+    func configureTimeline(time: Double = 0.15) {
         
+        let interval = TimeInterval(floatLiteral: time)
         
-        
-
-        
-        UIView.animate(withDuration: 0.25, animations: {
-            if self.isRearranging {
+        UIView.animate(withDuration: interval, animations: {
+            if self.isRearranging || (self.isTop && self.isBottom) {
                 //self.topLine.isHidden = true
                 self.topLine.alpha = 0
                 //self.bottomLine.isHidden = true

@@ -7,6 +7,19 @@
 
 import UIKit
 
+final class TaskTableView: UITableView {
+    
+    override func didAddSubview(_ subview: UIView) {
+        super.didAddSubview(subview)
+        
+        let subviewClass = String(describing: type(of: subview))
+        if subviewClass == "UIShadowView" {
+            subview.isHidden = true
+        }
+    }
+    
+}
+
 class TaskListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,7 +34,9 @@ class TaskListViewController: UIViewController {
         super.viewDidLoad()
         
         self.tableView.isEditing = false
-        
+        tableView.sectionIndexTrackingBackgroundColor = .clear
+        tableView.sectionIndexBackgroundColor = .clear
+        tableView
         //navigationController?.navigationItem.rightBarButtonItem = editButtonItem
         
         // MARK: - User Defaults
