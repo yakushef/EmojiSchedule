@@ -36,7 +36,7 @@ class TaskListViewController: UIViewController {
         self.tableView.isEditing = false
         tableView.sectionIndexTrackingBackgroundColor = .clear
         tableView.sectionIndexBackgroundColor = .clear
-        tableView
+       // tableView
         //navigationController?.navigationItem.rightBarButtonItem = editButtonItem
         
         // MARK: - User Defaults

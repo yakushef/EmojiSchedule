@@ -89,8 +89,9 @@ class TaskCell: UITableViewCell {
     
     func setColor(_ taskColor: String) {
    //     print(taskColor)
-        
-        background.backgroundColor = UIColor(named: taskColor)
+        background.layer.borderColor = UIColor(named: taskColor)?.cgColor
+        background.layer.borderWidth = 4
+        background.backgroundColor = UIColor(named: taskColor)?.withAlphaComponent(0.1)
         emojiBackground.layer.borderWidth = 0
     }
     

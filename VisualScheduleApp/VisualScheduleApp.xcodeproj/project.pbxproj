@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC9516522A2B9E5C00FBE6C5 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */; };
 		BCAD29D02A1BD3EC004F7C50 /* UIColor Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD29CF2A1BD3EC004F7C50 /* UIColor Extensions.swift */; };
 		BCB69A612A19219200CC221A /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB69A602A19219200CC221A /* NewTaskViewController.swift */; };
 		BCB69A632A1922FB00CC221A /* RoutinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB69A622A1922FB00CC221A /* RoutinesViewController.swift */; };
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC9516522A2B9E5C00FBE6C5 /* MCEmojiPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +125,9 @@
 			dependencies = (
 			);
 			name = VisualScheduleApp;
+			packageProductDependencies = (
+				BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */,
+			);
 			productName = VisualScheduleApp;
 			productReference = BCE8342A2A041D550098AC7E /* VisualScheduleApp.app */;
 			productType = "com.apple.product-type.application";
@@ -151,6 +156,9 @@
 				Base,
 			);
 			mainGroup = BCE834212A041D550098AC7E;
+			packageReferences = (
+				BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+			);
 			productRefGroup = BCE8342B2A041D550098AC7E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -412,6 +420,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
+			productName = MCEmojiPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCE834222A041D550098AC7E /* Project object */;
 }

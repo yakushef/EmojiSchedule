@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import MCEmojiPicker
 
 class NewTaskViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet private weak var nameField: UITextField!
-    
+    @IBOutlet weak var emojiButton: UIButton!
     @IBOutlet weak var colorSelector: UISegmentedControl!
+    @IBOutlet weak var descriptionField: UITextView!
     
     var storage: TaskStorageService!
 
@@ -60,9 +62,16 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         
         let emojiList = ["👿", "💀", "☠️", "💩", "🤡", "👻", "👽", "👾", "🤖", "🎃", "🎅", "🎄", "🎁", "🎂", "🍰", "🧁", "🍭", "🍬", "🍫", "🍔", "🍟", "🍕", "🍎", "🍌", "🍉", "🍇", "🍓", "🥝", "🥕", "🥦", "🍾", "🥂", "🍸", "🍷", "🍺", "🍻", "🥃", "🍹", "🍩", "🍪", "🍫", "🍔", "🍟", "🍕", "🍞", "🥐", "🥖", "🍜", "🍲", "🥪", "🍳", "🥚", "🥓", "🥩", "🍗", "🍖", "🥗", "🍰", "🎂", "🧇", "🥞", "🍦", "🍨", "🍧", "🍡", "🍢", "🍣", "🥡", "🐵", "🐒", "🦍", "🦧", "🐶", "🐕", "🦮", "🐕‍🦺", "🐩", "🐺", "🦊", "🦝", "🐱", "🐈", "🦁", "🐯", "🐅", "🐆", "🐴", "🐎", "🦄", "🦓", "🦌", "🦬", "🐮", "🐃", "🐄", "🐷", "🐖", "🐗", "🐏", "🐑", "🐐", "🦙", "🦒", "🐘", "🦏", "🦛", "🐭", "🐁", "🐀", "🐹", "🦔", "🐻", "🐨", "🐼", "🦥", "🦦", "🦨", "🦮", "🐕‍🦺", "🐕‍🦺", "🦩", "🕊️", "🦜", "🦢", "🦆", "🦉", "🐦", "🐧", "🦤", "🦇", "🐺", "🐗", "🐃", "🦛", "🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛵", "🛴", "🚲", "🛹", "🛼", "🛺", "🚅", "🚆", "🚇", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚀", "🛸", "🛰️", "🚁", "🛶", "⛵", "🛥️", "🚤", "🛳️", "⛴️", "🚢", "🏠", "🏡", "🏘️", "🏢", "🏬", "🏣", "🏤", "🏥", "🏦", "🏨", "🏪", "🏫", "🏰", "💒", "🗼", "🗽", "⛪", "🕌", "🕍", "⛩️", "🛕", "🎠", "🎡", "🎢", "💈", "🎪", "🚂", "🚃", "🚄", "🛣️", "🛤️", "🛢️", "⛽", "🚨", "🚥", "🚦", "🗺️", "🗾", "🏔️", "⛰️", "🌋", "🗻", "🏕️", "🏖️", "🏜️", "🏝️", "🏞️", "🏟️", "🏛️", "🎭", "🎨", "🌵", "🎄", "🌳", "🌴", "🪵", "🌱", "🌿", "☘️", "🍀", "🎍", "🎋", "🍃", "🍂", "🍁", "🍄", "🌾", "💐", "🌷", "🌹", "🥀", "🌺", "🌸", "🌼", "🌻", "🌞", "🌝", "🌛", "🌜", "🌚", "🌕", "🌖", "🌗", "🌘", "🌑", "🌒", "🌓", "🌔", "🌙", "🌎", "🌍", "🌏", "🌋", "🌊", "🪨", "🔥", "🌪️", "🌈", "☀️", "🌤️", "⛅", "☁️", "🌦️", "🌧️", "⛈️", "🌩️", "❄️", "🌨️", "☃️", "⛄", "🌬️", "💨", "🌫️", "🌁"]
         
-        let newTask = Task(symbol: emojiList[Int.random(in: 0..<emojiList.count)], title: nameText, color: color)
+        let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)], title: nameText, description: descriptionField.text, color: color)
         storage.add(task: newTask)
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func changeEmoji(_ sender: UIButton) {
+        let viewController = MCEmojiPickerViewController()
+        viewController.delegate = self
+        viewController.sourceView = sender
+        present(viewController, animated: true)
     }
     
     @IBAction func colorChanged(_ sender: Any) {
@@ -81,5 +90,12 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
             self.view.backgroundColor = color
         })
     }
+}
+
+extension NewTaskViewController: MCEmojiPickerDelegate {
+    func didGetEmoji(emoji: String) {
+        emojiButton.setTitle(emoji, for: .normal)
+    }
+    
     
 }
