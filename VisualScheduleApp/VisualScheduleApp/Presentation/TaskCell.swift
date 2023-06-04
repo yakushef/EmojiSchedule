@@ -33,8 +33,14 @@ class TaskCell: UITableViewCell {
     var isTop = false
     var isBottom = false
     var isRearranging = false
+    var color = ""
     
     weak var delegate: TaskCellDelegate?
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        background.layer.borderColor = UIColor(named: color)?.cgColor
+        background.backgroundColor = UIColor(named: color)?.withAlphaComponent(0.1)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -89,6 +95,7 @@ class TaskCell: UITableViewCell {
     
     func setColor(_ taskColor: String) {
    //     print(taskColor)
+        color = taskColor
         background.layer.borderColor = UIColor(named: taskColor)?.cgColor
         background.layer.borderWidth = 4
         background.backgroundColor = UIColor(named: taskColor)?.withAlphaComponent(0.1)

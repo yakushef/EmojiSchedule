@@ -24,7 +24,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         nameField.delegate = self
         
         storage = TaskStorageServiceImplementation()
-
+        setupToHideKeyboardOnTapOnView()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -33,6 +33,9 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
     /*
     // MARK: - Navigation
 
@@ -98,4 +101,29 @@ extension NewTaskViewController: MCEmojiPickerDelegate {
     }
     
     
+}
+
+extension NewTaskViewController
+{
+    func setupToHideKeyboardOnTapOnView()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(NewTaskViewController.dismissKeyboard))
+
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard()
+    {
+
+        view.endEditing(true)
+    }
+}
+
+extension NewTaskViewController: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textView.resignFirstResponder()
+    }
 }
