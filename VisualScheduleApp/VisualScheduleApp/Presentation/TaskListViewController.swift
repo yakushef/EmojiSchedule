@@ -65,15 +65,15 @@ class TaskListViewController: UIViewController {
     func configureCell(cell: TaskCell, indexPath: IndexPath) {
         
         cell.delegate = self
-        //cell.isExpanded = isReallyExpaded
+        cell.index = indexPath.row
         
         let task = currentTasks[indexPath.row]
         
         cell.collapseButton.tag = indexPath.row
         
-        cell.setColor(task.color)
+        cell.setColor(task.color, isActive: task.isActive, task: task)
         
-        cell.emojiLabel.text = task.symbol
+        cell.emojiButton.setTitle(task.symbol, for: .normal)
         cell.titleLabel.text = task.title
         cell.descriptionLabel.text = task.description
         
@@ -122,6 +122,11 @@ extension TaskListViewController: UITableViewDataSource {
 }
 
 extension TaskListViewController: TaskCellDelegate {
+    
+    func updateTaskStatus(task: Task, index: Int) {
+        taskStorage.replace(taskNumber: index, with: task)
+    }
+    
     
     func reorderingCells(isActive: Bool) {
         if isActive {
