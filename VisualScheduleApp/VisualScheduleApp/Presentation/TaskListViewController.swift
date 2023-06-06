@@ -42,12 +42,32 @@ class TaskListViewController: UIViewController {
         // MARK: - User Defaults
         taskStorage = TaskStorageServiceImplementation()
         taskStorage.firstRunCheck()
+        
+        updateTasks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         updateTasks()
+        tableView.reloadData()
+        
+//        updateTasks()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            self.tableView.beginUpdates()
+//            for cell in self.tableView.visibleCells {
+//                if let cell = cell as? TaskCell {
+//                    cell.setColor("red", isActive: true, task: self.currentTasks[cell.index])
+//
+//                }
+//            }
+//            self.tableView.endUpdates()
+//        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        sleep(3)
+//        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -70,10 +90,11 @@ class TaskListViewController: UIViewController {
         let task = currentTasks[indexPath.row]
         
         cell.collapseButton.tag = indexPath.row
-        
-        cell.setColor(task.color, isActive: task.isActive, task: task)
-        
         cell.emojiButton.setTitle(task.symbol, for: .normal)
+        cell.setColor(task.color, isActive: task.isActive, task: task, height: task.subtaks.count * 44)
+        print("index \(indexPath.row) = \(task.subtaks.count) subtasks")
+        
+        
         cell.titleLabel.text = task.title
         cell.descriptionLabel.text = task.description
         
@@ -86,7 +107,16 @@ class TaskListViewController: UIViewController {
     
     private func updateTasks() {
         currentTasks = taskStorage.taskList
+        
+//        tableView.beginUpdates()
+        
+//        let indexPaths = tableView.indexPathsForVisibleRows ?? []
+//        tableView.deleteRows(at: indexPaths, with: .automatic)
+        
         tableView.reloadData()
+        
+//        tableView.endUpdates()
+
     }
     
 }
@@ -118,13 +148,21 @@ extension TaskListViewController: UITableViewDataSource {
         
         return taskCell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? TaskCell else { return }
+        cell.updateSubtasks()
+    }
 
 }
+
+
 
 extension TaskListViewController: TaskCellDelegate {
     
     func updateTaskStatus(task: Task, index: Int) {
         taskStorage.replace(taskNumber: index, with: task)
+        currentTasks = taskStorage.taskList
     }
     
     
@@ -152,7 +190,7 @@ extension TaskListViewController: TaskCellDelegate {
     
     func expandedSection(button: UIButton) {
         //isExpended = !isReallyExpaded
-        print(button.tag)
+//        print(button.tag)
         tableView.endUpdates()
         
         //tableView.scrollToRow(at: IndexPath(row: button.tag, section: 0), at: .middle, animated: true)

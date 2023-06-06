@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Palette
 
 protocol TaskCellDelegate: AnyObject {
     func update()
     func expandedSection(button: UIButton)
     func reorderingCells(isActive: Bool)
     func updateTaskStatus(task: Task, index: Int)
+    
   //  var isExpended: Bool { get set }
 }
 
@@ -29,11 +31,15 @@ class TaskCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     @IBOutlet weak var subtaskTableView: UITableView!
+
+    @IBOutlet weak var subtaskStackView: UIStackView!
     @IBOutlet weak var collapseButton: UIButton!
     
     var cellTask: Task!
     
     var index = 0
+    
+//    var subtaskCount: Int
     
     var isExpanded = true
     var isTop = false
@@ -46,9 +52,17 @@ class TaskCell: UITableViewCell {
     
     weak var delegate: TaskCellDelegate?
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    func currentColor() {
         background.layer.borderColor = UIColor(named: color)?.cgColor
         background.backgroundColor = UIColor(named: color)?.withAlphaComponent(active ? 1 : 0.1)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if !isDone { currentColor() }
+        else {
+            background.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(active ? 1 : 0.1)
+            background.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+        }
     }
     
     override func awakeFromNib() {
@@ -70,6 +84,21 @@ class TaskCell: UITableViewCell {
         //bottomLine.isHidden = true
         topLine.alpha = 0
         bottomLine.alpha = 0
+//        subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(subtaskCount * 44)).isActive = true
+//        subtaskTableView.reloadData()
+    }
+    
+    func updateSubtasks() {
+//        let heightPriority = UILayoutPriority(rawValue: 1000)
+//        let heightConstraint = subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(cellTask.subtaks.count * 44))
+//        heightConstraint.priority = heightPriority
+//        heightConstraint.isActive = true
+                print("YO!")
+                print(cellTask.subtaks.count)
+                subtaskTableView.reloadData()
+//        subtaskTableView.heightAnchor.constraint(equalToConstant: subtaskTableView.bounds.height).isActive = true
+        delegate?.update()
+        delegate?.expandedSection(button: collapseButton)
     }
     
     func configureTimeline(time: Double = 0.15) {
@@ -102,18 +131,45 @@ class TaskCell: UITableViewCell {
 
     }
     
-    func setColor(_ taskColor: String, isActive: Bool, task: Task) {
+    
+    func resizeCell() {
+//        subtaskTableView.heightAnchor.constraint(equalToConstant: 300.0).isActive = true
+        subtaskTableView.reloadData()
+//        subtaskTableView.heightAnchor.constraint(equalToConstant: subtaskTableView.bounds.height).isActive = true
+    }
+    
+    func setColor(_ taskColor: String, isActive: Bool, task: Task, height: Int) {
    //     print(taskColor)
         cellTask = task
         isDone = cellTask.isCurrent
         active = isActive
         color = taskColor
-        background.layer.borderColor = UIColor(named: taskColor)?.cgColor
-        background.layer.borderWidth = 4
-        background.backgroundColor = UIColor(named: taskColor)?.withAlphaComponent(active ? 1 : 0.1)
+        let colorBase = emojiButton.titleLabel?.text
+        let emojiImage = colorBase?.image()
+        let accentColor = emojiImage.createPalette().vibrantColor
+//        background.layer.borderColor = UIColor(named: taskColor)?.cgColor
+//        background.layer.borderWidth = 4
+//        background.backgroundColor = UIColor(named: taskColor)?.withAlphaComponent(active ? 1 : 0.1)
         emojiBackground.layer.borderWidth = 0
         label = task.title
+//        subtaskCount = cellTask.subtaks.count
+        collapseButton.isHidden = task.subtaks.isEmpty
+        subtaskStackView.isHidden = task.subtaks.isEmpty
+//        print(cellTask.subtaks)
+//        let heightPriority = UILayoutPriority(rawValue: 1000)
+//        let heightConstraint = subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(cellTask.subtaks.count * 44))
+//        heightConstraint.priority = heightPriority
+//        heightConstraint.isActive = true
+        
+        
+        
+        subtaskTableView.reloadData()
+//        subtaskTableView.heightAnchor.constraint(equalToConstant: subtaskTableView.bounds.height).isActive = true
+//        subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(cellTask.subtaks.count * 44)).isActive = true
+         subtaskTableView.removeConstraints(subtaskTableView.constraints.filter { $0.firstAttribute == .height })
+        subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(height)).isActive = true
         taskDoneVisuals()
+//        subtaskTableView.exerciseAmbiguityInLayout()
     }
     
     func rotateImage(_ expanded: Bool) {
@@ -136,6 +192,9 @@ class TaskCell: UITableViewCell {
             titleLabel.alpha = 0.5
             descriptionLabel.alpha = 0.5
             emojiButton.alpha = 0.5
+            background.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(active ? 1 : 0.1)
+            background.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+            
         } else {
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: label)
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, attributeString.length))
@@ -143,6 +202,7 @@ class TaskCell: UITableViewCell {
             titleLabel.alpha = 1
             descriptionLabel.alpha = 1
             emojiButton.alpha = 1
+            currentColor()
         }
     }
     
@@ -207,7 +267,7 @@ class TaskCell: UITableViewCell {
         isExpanded.toggle()
         delegate?.update()
         UIView.animate(withDuration: 0.25, delay: 0, animations: {
-            self.subtaskTableView.isHidden.toggle()
+            self.subtaskStackView.isHidden.toggle()
         })
         rotateImage(isExpanded)
         delegate?.expandedSection(button: sender)
@@ -216,22 +276,26 @@ class TaskCell: UITableViewCell {
 
 extension TaskCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return cellTask.subtaks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "subtaskCell")
-        cell.textLabel?.text = "test3000"
+        cell.textLabel?.text = self.cellTask.subtaks[indexPath.row]
         cell.backgroundColor = .clear
         return cell
     }
-    
-    
 }
 
 extension TaskCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 44
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         subtaskTableView.deselectRow(at: indexPath, animated: true)

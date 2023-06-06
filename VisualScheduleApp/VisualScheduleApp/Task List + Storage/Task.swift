@@ -23,13 +23,13 @@ struct Task: Codable {
     var isActive: Bool
     var isCurrent: Bool
     
-    init(symbol: String = "🦦", title: String = "Test", description: String = "MIC CHECK 1-2", color: TaskColors = .taskRed, isActive: Bool = true) {
+    init(symbol: String = "🦦", title: String = "Test", description: String = "MIC CHECK 1-2", color: TaskColors = .taskRed, isActive: Bool = true, subtasks: [String] = []) {
         self.symbol = symbol
         self.title = title
         self.description = description
         self.color = color.rawValue
         
-        self.subtaks = [String]()
+        self.subtaks = subtasks
         
         self.isActive = isActive
         self.isCurrent = false
