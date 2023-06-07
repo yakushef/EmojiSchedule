@@ -20,11 +20,13 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var subtasksTestSwitch: UISwitch!
     
     var storage: TaskStorageService!
+    
+    var newTaskSubtasks: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .taskRed()
+//        view.backgroundColor = .taskRed()
         nameField.delegate = self
         
         storage = TaskStorageServiceImplementation()
@@ -40,15 +42,22 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+//         Get the new view controller using segue.destination.
+//         Pass the selected object to the new view controller
+        
+        if let vc = segue.destination as? SubtaskViewController {
+            vc.subtasks = subtasksTestSwitch.isOn ? ["TEsT 1", "tEst 2", "test 3"] : newTaskSubtasks
+            vc.delegate = self
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
     }
-    */
+
 
     @IBAction func saveTask(_ sender: Any?) {
         
@@ -68,8 +77,43 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         }
         
         let emojiList = ["👿", "💀", "☠️", "💩", "🤡", "👻", "👽", "👾", "🤖", "🎃", "🎅", "🎄", "🎁", "🎂", "🍰", "🧁", "🍭", "🍬", "🍫", "🍔", "🍟", "🍕", "🍎", "🍌", "🍉", "🍇", "🍓", "🥝", "🥕", "🥦", "🍾", "🥂", "🍸", "🍷", "🍺", "🍻", "🥃", "🍹", "🍩", "🍪", "🍫", "🍔", "🍟", "🍕", "🍞", "🥐", "🥖", "🍜", "🍲", "🥪", "🍳", "🥚", "🥓", "🥩", "🍗", "🍖", "🥗", "🍰", "🎂", "🧇", "🥞", "🍦", "🍨", "🍧", "🍡", "🍢", "🍣", "🥡", "🐵", "🐒", "🦍", "🦧", "🐶", "🐕", "🦮", "🐕‍🦺", "🐩", "🐺", "🦊", "🦝", "🐱", "🐈", "🦁", "🐯", "🐅", "🐆", "🐴", "🐎", "🦄", "🦓", "🦌", "🦬", "🐮", "🐃", "🐄", "🐷", "🐖", "🐗", "🐏", "🐑", "🐐", "🦙", "🦒", "🐘", "🦏", "🦛", "🐭", "🐁", "🐀", "🐹", "🦔", "🐻", "🐨", "🐼", "🦥", "🦦", "🦨", "🦮", "🐕‍🦺", "🐕‍🦺", "🦩", "🕊️", "🦜", "🦢", "🦆", "🦉", "🐦", "🐧", "🦤", "🦇", "🐺", "🐗", "🐃", "🦛", "🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛵", "🛴", "🚲", "🛹", "🛼", "🛺", "🚅", "🚆", "🚇", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚀", "🛸", "🛰️", "🚁", "🛶", "⛵", "🛥️", "🚤", "🛳️", "⛴️", "🚢", "🏠", "🏡", "🏘️", "🏢", "🏬", "🏣", "🏤", "🏥", "🏦", "🏨", "🏪", "🏫", "🏰", "💒", "🗼", "🗽", "⛪", "🕌", "🕍", "⛩️", "🛕", "🎠", "🎡", "🎢", "💈", "🎪", "🚂", "🚃", "🚄", "🛣️", "🛤️", "🛢️", "⛽", "🚨", "🚥", "🚦", "🗺️", "🗾", "🏔️", "⛰️", "🌋", "🗻", "🏕️", "🏖️", "🏜️", "🏝️", "🏞️", "🏟️", "🏛️", "🎭", "🎨", "🌵", "🎄", "🌳", "🌴", "🪵", "🌱", "🌿", "☘️", "🍀", "🎍", "🎋", "🍃", "🍂", "🍁", "🍄", "🌾", "💐", "🌷", "🌹", "🥀", "🌺", "🌸", "🌼", "🌻", "🌞", "🌝", "🌛", "🌜", "🌚", "🌕", "🌖", "🌗", "🌘", "🌑", "🌒", "🌓", "🌔", "🌙", "🌎", "🌍", "🌏", "🌋", "🌊", "🪨", "🔥", "🌪️", "🌈", "☀️", "🌤️", "⛅", "☁️", "🌦️", "🌧️", "⛈️", "🌩️", "❄️", "🌨️", "☃️", "⛄", "🌬️", "💨", "🌫️", "🌁"]
+        let colorBase = emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)]
+        let emojiImage = colorBase.image() ?? UIImage()
+//
+//        var uiColorLight = emojiImage.createPalette().lightVibrantColor
+//        if uiColorLight == nil {
+//            let mitedUIColorLight = emojiImage.createPalette().vibrantColor
+//            var hue: CGFloat = 0
+//            var sat: CGFloat = 0
+//            var bright: CGFloat = 0
+//            mitedUIColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+////            sat *= 3
+//            bright *= 1
+//            sat *= 0.7
+//            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+//        }
+//
+//        var uiColorDark = emojiImage.createPalette().darkVibrantColor
+//        if uiColorDark == nil {
+//            let mitedUIColorDark = emojiImage.createPalette().darkMutedColor
+//            var hue: CGFloat = 0
+//            var sat: CGFloat = 0
+//            var bright: CGFloat = 0
+//            mitedUIColorDark?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+//            sat *= 3
+////            bright *= 0.6
+//
+//            uiColorDark = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+//        }
         
-        let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)], title: nameText, description: descriptionField.text, color: color, isActive: prioritySwitch.isOn, subtasks: subtasksTestSwitch.isOn ? ["TEsT 1", "tEst 2", "test 3"] : [])
+        let uiColorLight = getLightColorScheme(from: emojiImage)
+        let uiColorDark = getDarkColorScheme(from: emojiImage)
+        
+        let colorLight = uiColorLight.getEmojiColor()
+        
+        let colorDark = uiColorDark.getEmojiColor()
+            
+        let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)], title: nameText, description: descriptionField.text, color: color, isActive: prioritySwitch.isOn, subtasks: newTaskSubtasks, colorLight: colorLight, colorDark: colorDark)
         storage.add(task: newTask)
         navigationController?.popViewController(animated: true)
     }
@@ -95,15 +139,77 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
             color = .taskRed()
         }
         
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.backgroundColor = color
-        })
+//        UIView.animate(withDuration: 0.5, animations: {
+//            self.view.backgroundColor = color
+//        })
     }
 }
 
 extension NewTaskViewController: MCEmojiPickerDelegate {
+    
+    func getLightColorScheme(from emojiImage: UIImage) -> UIColor {
+        var uiColorLight = emojiImage.createPalette().lightVibrantColor
+
+        if uiColorLight == nil {
+            let mitedUIColorLight = emojiImage.createPalette().vibrantColor
+            var hue: CGFloat = 0
+            var sat: CGFloat = 0
+            var bright: CGFloat = 0
+            mitedUIColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+//            sat *= 3
+            bright *= 1
+            sat *= 0.7
+            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+        } else {
+            var hue: CGFloat = 0
+            var sat: CGFloat = 0
+            var bright: CGFloat = 0
+            uiColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+            bright *= 0.9
+            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+        }
+        return uiColorLight ?? UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        }
+    
+    func getDarkColorScheme(from emojiImage: UIImage) -> UIColor {
+        
+        var uiColorDark = emojiImage.createPalette().mutedColor
+        if uiColorDark == nil {
+            let mitedUIColorDark = emojiImage.createPalette().darkVibrantColor
+            var hue: CGFloat = 0
+            var sat: CGFloat = 0
+            var bright: CGFloat = 0
+            mitedUIColorDark?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+//            sat *= 2
+//            bright *= 0.6
+
+            uiColorDark = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+        }
+        return uiColorDark ?? UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateColor()
+    }
+    
+    func updateColor() {
+        
+        let colorBase = emojiButton.title(for: .normal) ?? "🍄"
+        
+        let emojiImage = colorBase.image() ?? UIImage()
+        
+        let uiColorLight = getLightColorScheme(from: emojiImage)
+        let uiColorDark = getDarkColorScheme(from: emojiImage)
+        
+        let accentColor = self.traitCollection.userInterfaceStyle == .dark ? uiColorDark : uiColorLight
+        view.backgroundColor = accentColor
+    }
+    
     func didGetEmoji(emoji: String) {
         emojiButton.setTitle(emoji, for: .normal)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.updateColor()
+        })
     }
     
     
@@ -132,4 +238,11 @@ extension NewTaskViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.resignFirstResponder()
     }
+}
+
+extension NewTaskViewController: SubtaskViewControllerDelegate {
+    func updateSubtasks(with subtasks: [String]) {
+        newTaskSubtasks = subtasks
+    }    
+    
 }

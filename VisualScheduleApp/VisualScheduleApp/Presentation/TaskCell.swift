@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Palette
 
 protocol TaskCellDelegate: AnyObject {
     func update()
@@ -52,16 +51,58 @@ class TaskCell: UITableViewCell {
     
     weak var delegate: TaskCellDelegate?
     
+    func emojiToImage(text: String, size: CGFloat) -> UIImage {
+
+            let outputImageSize = CGSize.init(width: size, height: size)
+            let baseSize = text.boundingRect(with: CGSize(width: 2048, height: 2048),
+                                             options: .usesLineFragmentOrigin,
+                                             attributes: [.font: UIFont.systemFont(ofSize: size / 2)], context: nil).size
+            let fontSize = outputImageSize.width / max(baseSize.width, baseSize.height) * (outputImageSize.width / 2)
+            let font = UIFont.systemFont(ofSize: fontSize)
+            let textSize = text.boundingRect(with: CGSize(width: outputImageSize.width, height: outputImageSize.height),
+                                             options: .usesLineFragmentOrigin,
+                                             attributes: [.font: font], context: nil).size
+
+            let style = NSMutableParagraphStyle()
+            style.alignment = NSTextAlignment.center
+            style.lineBreakMode = NSLineBreakMode.byClipping
+
+        let attr : [NSAttributedString.Key : Any] = [NSAttributedString.Key.font : font,
+                                                    NSAttributedString.Key.paragraphStyle: style,
+                                                     NSAttributedString.Key.backgroundColor: UIColor.clear ]
+
+            UIGraphicsBeginImageContextWithOptions(outputImageSize, false, 0)
+            text.draw(in: CGRect(x: (size - textSize.width) / 2,
+                                 y: (size - textSize.height) / 2,
+                                 width: textSize.width,
+                                 height: textSize.height),
+                                 withAttributes: attr)
+            let image = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            return image
+        }
+    
     func currentColor() {
-        background.layer.borderColor = UIColor(named: color)?.cgColor
-        background.backgroundColor = UIColor(named: color)?.withAlphaComponent(active ? 1 : 0.1)
+        let accentColor = self.traitCollection.userInterfaceStyle == .dark ? cellTask.colorDark : cellTask.colorLight
+        background.layer.borderColor = accentColor.getUIColor().cgColor
+        background.backgroundColor = accentColor.getUIColor().withAlphaComponent(active ? 1 : 0.1)
+    }
+    
+    func setInactiveColor() {
+        if self.traitCollection.userInterfaceStyle == .light {
+            let color = active ? UIColor.systemGray5 : UIColor.systemGray4
+            background.backgroundColor = color.withAlphaComponent(active ? 1 : 0.1)
+            background.layer.borderColor = color.cgColor
+        } else {
+            background.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(active ? 1 : 0.1)
+            background.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         if !isDone { currentColor() }
         else {
-            background.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(active ? 1 : 0.1)
-            background.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+            setInactiveColor()
         }
     }
     
@@ -89,14 +130,9 @@ class TaskCell: UITableViewCell {
     }
     
     func updateSubtasks() {
-//        let heightPriority = UILayoutPriority(rawValue: 1000)
-//        let heightConstraint = subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(cellTask.subtaks.count * 44))
-//        heightConstraint.priority = heightPriority
-//        heightConstraint.isActive = true
-                print("YO!")
-                print(cellTask.subtaks.count)
+
                 subtaskTableView.reloadData()
-//        subtaskTableView.heightAnchor.constraint(equalToConstant: subtaskTableView.bounds.height).isActive = true
+
         delegate?.update()
         delegate?.expandedSection(button: collapseButton)
     }
@@ -144,17 +180,20 @@ class TaskCell: UITableViewCell {
         isDone = cellTask.isCurrent
         active = isActive
         color = taskColor
-        let colorBase = emojiButton.titleLabel?.text
-        let emojiImage = colorBase?.image()
-        let accentColor = emojiImage.createPalette().vibrantColor
+
 //        background.layer.borderColor = UIColor(named: taskColor)?.cgColor
 //        background.layer.borderWidth = 4
 //        background.backgroundColor = UIColor(named: taskColor)?.withAlphaComponent(active ? 1 : 0.1)
+//                background.layer.borderColor = accentColor?.cgColor
+                background.layer.borderWidth = 4
+//                background.backgroundColor = accentColor?.withAlphaComponent(active ? 1 : 0.1)
         emojiBackground.layer.borderWidth = 0
+        currentColor()
         label = task.title
 //        subtaskCount = cellTask.subtaks.count
         collapseButton.isHidden = task.subtaks.isEmpty
         subtaskStackView.isHidden = task.subtaks.isEmpty
+        descriptionLabel.isHidden = task.description.isEmpty
 //        print(cellTask.subtaks)
 //        let heightPriority = UILayoutPriority(rawValue: 1000)
 //        let heightConstraint = subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(cellTask.subtaks.count * 44))
@@ -192,8 +231,9 @@ class TaskCell: UITableViewCell {
             titleLabel.alpha = 0.5
             descriptionLabel.alpha = 0.5
             emojiButton.alpha = 0.5
-            background.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(active ? 1 : 0.1)
-            background.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+//            background.backgroundColor = UIColor.gray.withAlphaComponent(active ? 1 : 0.1)
+//            background.layer.borderColor = UIColor.gray.cgColor
+            setInactiveColor()
             
         } else {
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: label)
