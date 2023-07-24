@@ -12,6 +12,7 @@ protocol TaskStorageService {
     
     func updateAllTasks(taskList: [Task])
     
+    func checkIfExpired()
     func firstRunCheck()
     func add(task: Task)
     func remove(taskNumber: Int)
@@ -25,6 +26,13 @@ final class TaskStorageServiceImplementation: TaskStorageService {
     private let userDefaults = UserDefaults.standard
     private enum Keys: String {
         case task, position
+    }
+    
+    func checkIfExpired() {
+        let tasks = taskList
+        let unexpiredTasks = tasks.filter { $0.isCurrent || $0.creationDate != Date() }
+        taskList = unexpiredTasks
+        updateAllTasks(taskList: unexpiredTasks)
     }
     
     func updateAllTasks(taskList: [Task]) {

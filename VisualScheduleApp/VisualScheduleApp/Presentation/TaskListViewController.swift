@@ -30,6 +30,8 @@ class TaskListViewController: UIViewController {
     
     var currentTasks: [Task] = []//[Task(symbol: "🐿️" ,color: .red), Task(symbol: "🦫", color: .orange), Task(description: "sdfkhsdkhbfksj \n skjefhlksdf \n skjfhkdl", color: .systemYellow), Task(symbol: "🦔", color: .systemMint)]
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,13 +45,15 @@ class TaskListViewController: UIViewController {
         taskStorage = TaskStorageServiceImplementation()
         taskStorage.firstRunCheck()
         
-        updateTasks()
+//        updateTasks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateTasks()
         tableView.reloadData()
+        
+        
         
 //        updateTasks()
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -66,8 +70,6 @@ class TaskListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        sleep(3)
-//        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -106,17 +108,9 @@ class TaskListViewController: UIViewController {
     }
     
     private func updateTasks() {
+        taskStorage.checkIfExpired()
         currentTasks = taskStorage.taskList
-        
-//        tableView.beginUpdates()
-        
-//        let indexPaths = tableView.indexPathsForVisibleRows ?? []
-//        tableView.deleteRows(at: indexPaths, with: .automatic)
-        
         tableView.reloadData()
-        
-//        tableView.endUpdates()
-
     }
     
 }

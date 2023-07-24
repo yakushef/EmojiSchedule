@@ -41,6 +41,8 @@ struct Task: Codable {
     var colorLight: emojiColor
     var colorDark: emojiColor
     
+    let creationDate: Date
+    
     init(symbol: String = "🦦", title: String = "Test", description: String = "MIC CHECK 1-2", color: TaskColors = .taskRed, isActive: Bool = true, subtasks: [String] = [], colorLight: emojiColor = emojiColor(r: 0, g: 0, b: 0), colorDark: emojiColor = emojiColor(r: 1, g: 1, b: 1)) {
         self.symbol = symbol
         self.title = title
@@ -54,6 +56,8 @@ struct Task: Codable {
         
         self.colorDark = colorDark
         self.colorLight = colorLight
+        
+        self.creationDate = Date()
     }
 }
 

@@ -262,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DtX-O9-9tW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3180" y="-421"/>
+            <point key="canvasLocation" x="3180" y="-499"/>
         </scene>
         <!--Edit task-->
         <scene sceneID="kZF-Vv-lef">
@@ -315,7 +315,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHj-iq-4ZD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4069" y="3"/>
+            <point key="canvasLocation" x="4686" y="26"/>
         </scene>
         <!--Add new task-->
         <scene sceneID="jTm-KA-Dik">
@@ -332,7 +332,7 @@
                                     <constraint firstAttribute="height" constant="100" id="FtH-IW-bb8"/>
                                     <constraint firstAttribute="width" constant="100" id="nae-UF-ZxZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="55"/>
                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="?"/>
@@ -483,7 +483,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jz-ss-bNy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3180" y="450"/>
+            <point key="canvasLocation" x="3180" y="434"/>
         </scene>
         <!--Subtask View Controller-->
         <scene sceneID="5mT-35-qn9">
@@ -543,7 +543,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOs-9Q-P28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4047.6923076923076" y="713.74407582938386"/>
+            <point key="canvasLocation" x="4094" y="884"/>
         </scene>
         <!--Item-->
         <scene sceneID="EzZ-qe-BaN">
