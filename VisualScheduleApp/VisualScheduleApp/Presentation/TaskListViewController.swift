@@ -73,10 +73,18 @@ class TaskListViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let viewController = segue.destination as? NewTaskViewController, let indexPath = sender as? IndexPath else { return }
+        
+        if segue.identifier == "newTask" {
+            viewController.state = .add
+        }
         if segue.identifier == "editor" {
-            guard let viewController = segue.destination as? EditTaskViewController, let indexPath = sender as? IndexPath else { return }
-            viewController.editedTask = currentTasks[indexPath.row]
-            viewController.taskNumber = indexPath.row
+            viewController.state = .edit
+            viewController.task = currentTasks[indexPath.row]
+            viewController.taskIndex = indexPath.row
+           // viewController.editedTask = currentTasks[indexPath.row]
+          //  viewController.taskNumber = indexPath.row
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -162,7 +170,7 @@ extension TaskListViewController: TaskCellDelegate {
     
     func reorderingCells(isActive: Bool) {
         if isActive {
-           // tableview.reloadSections(IndexSet(integer: 0), with: .none)
+
         } else {
             
         }
@@ -173,21 +181,9 @@ extension TaskListViewController: TaskCellDelegate {
         tableView.beginUpdates()
     }
     
-//    var isExpended: Bool {
-//        get {
-//            return isReallyExpaded
-//        }
-//        set {
-//            isReallyExpaded = newValue
-//        }
-//    }
-    
     func expandedSection(button: UIButton) {
-        //isExpended = !isReallyExpaded
-//        print(button.tag)
+
         tableView.endUpdates()
-        
-        //tableView.scrollToRow(at: IndexPath(row: button.tag, section: 0), at: .middle, animated: true)
         
     }
 }
@@ -212,13 +208,9 @@ extension TaskListViewController {
         let movedObject = self.currentTasks[sourceIndexPath.row]
         currentTasks.remove(at: sourceIndexPath.row)
         currentTasks.insert(movedObject, at: destinationIndexPath.row)
-        //let cell = tableView.cellForRow(at: destinationIndexPath) as? TaskCell
-        //cell?.configureTimeline()
         for j in 0..<tableView.numberOfRows(inSection: 0) {
             let indexPath = IndexPath(row: j, section: 0)
             let cell = tableView.cellForRow(at: indexPath) as? TaskCell
-            // call your function here
-            //cell?.isRearranging = isEditing
             cell?.configureTimeline()
         }
     }
@@ -232,15 +224,6 @@ extension TaskListViewController {
         let editingState = !self.tableView.isEditing
         self.setEditing(editingState, animated: true)
         if !editingState {
-//            self.tableView.beginUpdates()
-//            for j in 0..<tableView.numberOfRows(inSection: 0) {
-//                let indexPath = IndexPath(row: j, section: 0)
-//                let cell = tableView.cellForRow(at: indexPath) as? TaskCell
-//                // call your function here
-//                cell?.isRearranging = isEditing
-//                cell?.configureTimeline()
-//            }
-//            self.tableView.endUpdates()
             editButton.title = "Edit"
             self.taskStorage.updateAllTasks(taskList: currentTasks)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {

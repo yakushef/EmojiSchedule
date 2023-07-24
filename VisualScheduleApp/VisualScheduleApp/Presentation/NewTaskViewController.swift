@@ -8,8 +8,16 @@
 import UIKit
 import MCEmojiPicker
 
+enum EditorState {
+    case add
+    case edit
+}
+
 class NewTaskViewController: UIViewController, UITextFieldDelegate {
     
+    var state: EditorState = .add
+    
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet private weak var nameField: UITextField!
     @IBOutlet weak var emojiButton: UIButton!
     @IBOutlet weak var colorSelector: UISegmentedControl!
@@ -20,13 +28,39 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var subtasksTestSwitch: UISwitch!
     
     var storage: TaskStorageService!
-    
-    var newTaskSubtasks: [Subtask] = []
+    var task: Task? = nil {
+        didSet {
+            taskSubtasks = task?.subtaks ?? []
+        }
+    }
+    var taskSubtasks: [Subtask] = []
+    var taskIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.backgroundColor = .taskRed()
+        if state == .add {
+            navigationItem.title = "Add new task"
+            deleteButton.isHidden = true
+        } else if state == .edit {
+            navigationItem.title = "Edit task"
+            deleteButton.isHidden = false
+            
+            nameField.text = task?.title
+            descriptionField.text = task?.description
+            emojiButton.setTitle(task?.symbol, for: .normal)
+            
+            // TODO: make func
+            let colorBase = emojiButton.title(for: .normal) ?? "🐚"
+            let emojiImage = colorBase.image() ?? UIImage()
+            
+            let uiColorLight = getLightColorScheme(from: emojiImage)
+            let uiColorDark = getDarkColorScheme(from: emojiImage)
+            
+            let accentColor = self.traitCollection.userInterfaceStyle == .dark ? uiColorDark : uiColorLight
+            view.backgroundColor = accentColor
+        }
+
         nameField.delegate = self
         
         storage = TaskStorageServiceImplementation()
@@ -51,7 +85,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
 //         Pass the selected object to the new view controller
         
         if let vc = segue.destination as? SubtaskViewController {
-            vc.subtasks = newTaskSubtasks
+            vc.subtasks = taskSubtasks
             vc.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
@@ -79,32 +113,6 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         let emojiList = ["👿", "💀", "☠️", "💩", "🤡", "👻", "👽", "👾", "🤖", "🎃", "🎅", "🎄", "🎁", "🎂", "🍰", "🧁", "🍭", "🍬", "🍫", "🍔", "🍟", "🍕", "🍎", "🍌", "🍉", "🍇", "🍓", "🥝", "🥕", "🥦", "🍾", "🥂", "🍸", "🍷", "🍺", "🍻", "🥃", "🍹", "🍩", "🍪", "🍫", "🍔", "🍟", "🍕", "🍞", "🥐", "🥖", "🍜", "🍲", "🥪", "🍳", "🥚", "🥓", "🥩", "🍗", "🍖", "🥗", "🍰", "🎂", "🧇", "🥞", "🍦", "🍨", "🍧", "🍡", "🍢", "🍣", "🥡", "🐵", "🐒", "🦍", "🦧", "🐶", "🐕", "🦮", "🐕‍🦺", "🐩", "🐺", "🦊", "🦝", "🐱", "🐈", "🦁", "🐯", "🐅", "🐆", "🐴", "🐎", "🦄", "🦓", "🦌", "🦬", "🐮", "🐃", "🐄", "🐷", "🐖", "🐗", "🐏", "🐑", "🐐", "🦙", "🦒", "🐘", "🦏", "🦛", "🐭", "🐁", "🐀", "🐹", "🦔", "🐻", "🐨", "🐼", "🦥", "🦦", "🦨", "🦮", "🐕‍🦺", "🐕‍🦺", "🦩", "🕊️", "🦜", "🦢", "🦆", "🦉", "🐦", "🐧", "🦤", "🦇", "🐺", "🐗", "🐃", "🦛", "🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛵", "🛴", "🚲", "🛹", "🛼", "🛺", "🚅", "🚆", "🚇", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚀", "🛸", "🛰️", "🚁", "🛶", "⛵", "🛥️", "🚤", "🛳️", "⛴️", "🚢", "🏠", "🏡", "🏘️", "🏢", "🏬", "🏣", "🏤", "🏥", "🏦", "🏨", "🏪", "🏫", "🏰", "💒", "🗼", "🗽", "⛪", "🕌", "🕍", "⛩️", "🛕", "🎠", "🎡", "🎢", "💈", "🎪", "🚂", "🚃", "🚄", "🛣️", "🛤️", "🛢️", "⛽", "🚨", "🚥", "🚦", "🗺️", "🗾", "🏔️", "⛰️", "🌋", "🗻", "🏕️", "🏖️", "🏜️", "🏝️", "🏞️", "🏟️", "🏛️", "🎭", "🎨", "🌵", "🎄", "🌳", "🌴", "🪵", "🌱", "🌿", "☘️", "🍀", "🎍", "🎋", "🍃", "🍂", "🍁", "🍄", "🌾", "💐", "🌷", "🌹", "🥀", "🌺", "🌸", "🌼", "🌻", "🌞", "🌝", "🌛", "🌜", "🌚", "🌕", "🌖", "🌗", "🌘", "🌑", "🌒", "🌓", "🌔", "🌙", "🌎", "🌍", "🌏", "🌋", "🌊", "🪨", "🔥", "🌪️", "🌈", "☀️", "🌤️", "⛅", "☁️", "🌦️", "🌧️", "⛈️", "🌩️", "❄️", "🌨️", "☃️", "⛄", "🌬️", "💨", "🌫️", "🌁"]
         let colorBase = emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)]
         let emojiImage = colorBase.image() ?? UIImage()
-//
-//        var uiColorLight = emojiImage.createPalette().lightVibrantColor
-//        if uiColorLight == nil {
-//            let mitedUIColorLight = emojiImage.createPalette().vibrantColor
-//            var hue: CGFloat = 0
-//            var sat: CGFloat = 0
-//            var bright: CGFloat = 0
-//            mitedUIColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
-////            sat *= 3
-//            bright *= 1
-//            sat *= 0.7
-//            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
-//        }
-//
-//        var uiColorDark = emojiImage.createPalette().darkVibrantColor
-//        if uiColorDark == nil {
-//            let mitedUIColorDark = emojiImage.createPalette().darkMutedColor
-//            var hue: CGFloat = 0
-//            var sat: CGFloat = 0
-//            var bright: CGFloat = 0
-//            mitedUIColorDark?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
-//            sat *= 3
-////            bright *= 0.6
-//
-//            uiColorDark = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
-//        }
         
         let uiColorLight = getLightColorScheme(from: emojiImage)
         let uiColorDark = getDarkColorScheme(from: emojiImage)
@@ -112,14 +120,27 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         let colorLight = uiColorLight.getEmojiColor()
         
         let colorDark = uiColorDark.getEmojiColor()
-            
-        let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)],
-                           title: nameText, description: descriptionField.text,
-                           color: color, isActive: prioritySwitch.isOn,
-                           subtasks: newTaskSubtasks,
-                           colorLight: colorLight,
-                           colorDark: colorDark)
-        storage.add(task: newTask)
+        
+        switch state {
+        case .edit:
+            guard let task else { return }
+            var updatedTask = Task(symbol: emojiButton.title(for: .normal) ?? task.symbol,
+                                   title: nameText, description: descriptionField.text,
+                                   color: color, isActive: prioritySwitch.isOn,
+                                   subtasks: taskSubtasks,
+                                   colorLight: colorLight,
+                                   colorDark: colorDark)
+            storage.replace(taskNumber: taskIndex, with: updatedTask)
+        case .add:
+                
+            let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)],
+                               title: nameText, description: descriptionField.text,
+                               color: color, isActive: prioritySwitch.isOn,
+                               subtasks: taskSubtasks,
+                               colorLight: colorLight,
+                               colorDark: colorDark)
+            storage.add(task: newTask)
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -130,6 +151,12 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         viewController.delegate = self
         viewController.sourceView = sender
         present(viewController, animated: true)
+    }
+    
+    
+    @IBAction func deleteButtonTapped() {
+        storage.remove(taskNumber: taskIndex)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func colorChanged(_ sender: Any) {
@@ -243,7 +270,7 @@ extension NewTaskViewController: UITextViewDelegate {
 
 extension NewTaskViewController: SubtaskViewControllerDelegate {
     func updateSubtasks(with subtasks: [Subtask]) {
-        newTaskSubtasks = subtasks
+        taskSubtasks = subtasks
     }    
     
 }

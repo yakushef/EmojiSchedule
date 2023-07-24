@@ -244,93 +244,21 @@
                         <barButtonItem key="rightBarButtonItem" title="add" image="plus.circle" catalog="system" id="QoL-Ts-eSb">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
-                                <segue destination="V6z-o3-tB9" kind="show" id="H9G-QF-KwI"/>
+                                <segue destination="V6z-o3-tB9" kind="show" identifier="newTask" id="H9G-QF-KwI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="gdI-0A-sA9" id="9wK-zo-P4g"/>
                         <outlet property="tableView" destination="V5U-m8-x7H" id="BR6-Rj-l0q"/>
+                        <segue destination="V6z-o3-tB9" kind="show" identifier="editor" id="AZo-ej-jGc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2273.8461538461538" y="2.8436018957345972"/>
+            <point key="canvasLocation" x="2149" y="3"/>
         </scene>
-        <!--My routines-->
-        <scene sceneID="gfe-tJ-1SG">
-            <objects>
-                <viewController storyboardIdentifier="routines" id="eeJ-k6-yKj" customClass="RoutinesViewController" customModule="VisualScheduleApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dnh-jm-MhI">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="KRK-WL-BH9"/>
-                        <color key="backgroundColor" systemColor="systemMintColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="My routines" style="editor" id="B1a-8O-y2L">
-                        <barButtonItem key="rightBarButtonItem" title="add" image="plus.circle" catalog="system" id="Dy9-aV-mem">
-                            <color key="tintColor" systemColor="labelColor"/>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DtX-O9-9tW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4077" y="-740"/>
-        </scene>
-        <!--Edit task-->
-        <scene sceneID="kZF-Vv-lef">
-            <objects>
-                <viewController storyboardIdentifier="editor" id="flv-mH-8fB" customClass="EditTaskViewController" customModule="VisualScheduleApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VRb-2r-6ah">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIm-T8-fx9">
-                                <rect key="frame" x="16" y="178" width="84" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U0L-t9-6cM">
-                                <rect key="frame" x="16" y="233" width="123" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLN-24-Siv">
-                                <rect key="frame" x="16" y="298" width="85" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemRedColor"/>
-                                <color key="tintColor" systemColor="labelColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="DELETE"/>
-                                <connections>
-                                    <action selector="deleteButtonTapped:" destination="flv-mH-8fB" eventType="touchUpInside" id="4LI-3z-lAL"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="HAB-ie-0Tr"/>
-                        <color key="backgroundColor" systemColor="systemGrayColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Edit task" style="editor" id="7D9-wY-QHI">
-                        <barButtonItem key="rightBarButtonItem" title="save" image="checkmark.circle" catalog="system" id="71d-dX-jAR">
-                            <color key="tintColor" systemColor="labelColor"/>
-                            <connections>
-                                <action selector="okButtonTapped:" destination="flv-mH-8fB" id="DlX-3U-fMw"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="nameTextField" destination="U0L-t9-6cM" id="r4S-Q3-OQy"/>
-                        <outlet property="taskNameLabel" destination="yIm-T8-fx9" id="HdS-9G-IQz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QHj-iq-4ZD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4992" y="3"/>
-        </scene>
-        <!--Add new task-->
+        <!--Task-->
         <scene sceneID="jTm-KA-Dik">
             <objects>
                 <viewController storyboardIdentifier="new" id="V6z-o3-tB9" customClass="NewTaskViewController" customModule="VisualScheduleApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -359,19 +287,19 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter task here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rtc-nl-XLc">
-                                <rect key="frame" x="132" y="176" width="242" height="71"/>
+                                <rect key="frame" x="132" y="175.33333333333334" width="242" height="71.666666666666657"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bL-qw-sHL">
-                                <rect key="frame" x="132" y="147" width="242" height="21"/>
+                                <rect key="frame" x="132" y="147" width="242" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJP-cd-EsQ">
-                                <rect key="frame" x="16" y="255" width="358" height="21"/>
+                                <rect key="frame" x="16" y="255.00000000000003" width="358" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -390,7 +318,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eZZ-VC-hmm">
-                                <rect key="frame" x="16" y="284" width="358" height="180"/>
+                                <rect key="frame" x="16" y="283.33333333333331" width="358" height="180"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="GRY-1S-vAu"/>
@@ -416,6 +344,7 @@
                                 <rect key="frame" x="327" y="545" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="labelColor"/>
+                                <color key="onTintColor" systemColor="secondaryLabelColor"/>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fF1-ug-2wF" userLabel="SubtasksTestSwitch">
                                 <rect key="frame" x="327" y="586" width="49" height="31"/>
@@ -429,19 +358,59 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3w2-pH-qX6">
-                                <rect key="frame" x="117" y="681" width="156" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="SUBTASKS">
-                                    <color key="titleColor" systemColor="labelColor"/>
-                                </state>
-                                <connections>
-                                    <segue destination="ISa-kz-snm" kind="presentation" identifier="SubtaskList" id="2Pp-Ws-Ulf"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="f6s-PO-eB2">
+                                <rect key="frame" x="120" y="690" width="150" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85k-Bn-RDq">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="FPB-Yb-bVM"/>
+                                            <constraint firstAttribute="height" constant="60" id="Qge-Fr-2yv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="tintColor" red="0.9627979793" green="0.97487449859999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="trash" catalog="system" symbolScale="large" renderingMode="template"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="deleteButtonTapped" destination="V6z-o3-tB9" eventType="touchUpInside" id="T4H-QA-X70"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3w2-pH-qX6">
+                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="78X-ah-XCU"/>
+                                            <constraint firstAttribute="width" constant="60" id="vWB-08-xr6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                            <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large" renderingMode="template"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="ISa-kz-snm" kind="presentation" identifier="SubtaskList" id="2Pp-Ws-Ulf"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="E0K-tj-wEf"/>
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
@@ -449,10 +418,12 @@
                             <constraint firstItem="eZZ-VC-hmm" firstAttribute="top" secondItem="QJP-cd-EsQ" secondAttribute="bottom" constant="8" symbolic="YES" id="08b-F4-N7g"/>
                             <constraint firstItem="CKs-7O-6NA" firstAttribute="top" secondItem="DPq-sp-gZ3" secondAttribute="bottom" constant="8" symbolic="YES" id="0JB-G2-rgL"/>
                             <constraint firstItem="CKs-7O-6NA" firstAttribute="trailing" secondItem="5bL-qw-sHL" secondAttribute="trailing" id="2Wl-gu-D6U"/>
+                            <constraint firstItem="f6s-PO-eB2" firstAttribute="centerX" secondItem="E0K-tj-wEf" secondAttribute="centerX" id="6ty-lE-Jlw"/>
                             <constraint firstItem="mjO-MU-xl2" firstAttribute="top" secondItem="E0K-tj-wEf" secondAttribute="top" constant="4" id="7Jw-eq-H84"/>
                             <constraint firstItem="CKs-7O-6NA" firstAttribute="trailing" secondItem="QJP-cd-EsQ" secondAttribute="trailing" id="7rA-yn-ebj"/>
                             <constraint firstItem="E0K-tj-wEf" firstAttribute="trailing" secondItem="QJP-cd-EsQ" secondAttribute="trailing" constant="16" id="F6x-kw-jou"/>
                             <constraint firstItem="eZZ-VC-hmm" firstAttribute="trailing" secondItem="QJP-cd-EsQ" secondAttribute="trailing" id="IV0-8I-1l3"/>
+                            <constraint firstItem="E0K-tj-wEf" firstAttribute="bottom" secondItem="f6s-PO-eB2" secondAttribute="bottom" constant="60" id="XEP-U8-Usx"/>
                             <constraint firstItem="QJP-cd-EsQ" firstAttribute="top" secondItem="Rtc-nl-XLc" secondAttribute="bottom" constant="8" symbolic="YES" id="Ylk-t7-xtl"/>
                             <constraint firstItem="mjO-MU-xl2" firstAttribute="leading" secondItem="E0K-tj-wEf" secondAttribute="leading" constant="16" id="chy-sa-XYP"/>
                             <constraint firstItem="eZZ-VC-hmm" firstAttribute="leading" secondItem="QJP-cd-EsQ" secondAttribute="leading" id="dQP-sT-whX"/>
@@ -478,7 +449,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Add new task" style="editor" id="7yg-n9-y2Z">
+                    <navigationItem key="navigationItem" title="Task" style="editor" id="7yg-n9-y2Z">
                         <barButtonItem key="rightBarButtonItem" title="save" image="checkmark.circle" catalog="system" id="fvD-RU-HgG">
                             <connections>
                                 <action selector="saveTask:" destination="V6z-o3-tB9" id="rbX-Gr-2ED"/>
@@ -487,6 +458,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="colorSelector" destination="CKs-7O-6NA" id="WP1-1U-skc"/>
+                        <outlet property="deleteButton" destination="85k-Bn-RDq" id="A1W-ya-tn9"/>
                         <outlet property="descriptionField" destination="eZZ-VC-hmm" id="A6Q-gE-bVw"/>
                         <outlet property="emojiButton" destination="mjO-MU-xl2" id="DT7-vf-MA2"/>
                         <outlet property="nameField" destination="Rtc-nl-XLc" id="Ssr-cS-2lq"/>
@@ -496,7 +468,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jz-ss-bNy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3180" y="333"/>
+            <point key="canvasLocation" x="3227.6923076923076" y="2.8436018957345972"/>
         </scene>
         <!--Subtask View Controller-->
         <scene sceneID="5mT-35-qn9">
@@ -558,7 +530,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOs-9Q-P28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4077" y="665"/>
+            <point key="canvasLocation" x="4326" y="3"/>
         </scene>
         <!--Item-->
         <scene sceneID="EzZ-qe-BaN">
@@ -581,10 +553,15 @@
             <point key="canvasLocation" x="1043.5114503816794" y="3.5211267605633805"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="AZo-ej-jGc"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="plus.circle" catalog="system" width="128" height="123"/>
+        <image name="trash" catalog="system" width="117" height="128"/>
         <namedColor name="TaskMint">
             <color red="0.0" green="0.80784313725490198" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -602,12 +579,6 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -213,7 +213,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BCE834252A041D550098AC7E /* Build configuration list for PBXProject "VisualScheduleApp" */;
+			buildConfigurationList = BCE834252A041D550098AC7E /* Build configuration list for PBXProject "Playful Tasks" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -426,6 +426,7 @@
 				DEVELOPMENT_TEAM = 7XT93683G9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VisualScheduleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Playful Tasks";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -457,6 +458,7 @@
 				DEVELOPMENT_TEAM = 7XT93683G9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VisualScheduleApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Playful Tasks";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -481,7 +483,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BCE834252A041D550098AC7E /* Build configuration list for PBXProject "VisualScheduleApp" */ = {
+		BCE834252A041D550098AC7E /* Build configuration list for PBXProject "Playful Tasks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCE8343C2A041D560098AC7E /* Debug */,
