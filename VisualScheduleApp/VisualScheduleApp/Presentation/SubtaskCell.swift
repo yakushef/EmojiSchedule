@@ -9,9 +9,14 @@ import UIKit
 
 class SubtaskCell: UITableViewCell {
 
+    @IBOutlet weak var dotView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        textLabel?.translatesAutoresizingMaskIntoConstraints = false
+        textLabel?.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        textLabel?.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

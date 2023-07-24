@@ -86,6 +86,15 @@ class TaskCell: UITableViewCell {
         let accentColor = self.traitCollection.userInterfaceStyle == .dark ? cellTask.colorDark : cellTask.colorLight
         background.layer.borderColor = accentColor.getUIColor().cgColor
         background.backgroundColor = accentColor.getUIColor().withAlphaComponent(active ? 1 : 0.1)
+        for cell in subtaskTableView.visibleCells {
+            guard let subtaskCell = cell as? SubtaskCell else { return }
+            if subtaskCell.textLabel?.alpha == 1 {
+                subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+            } else {
+                subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+                subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
+            }
+        }
     }
     
     func setInactiveColor() {
@@ -131,7 +140,7 @@ class TaskCell: UITableViewCell {
     
     func updateSubtasks() {
 
-                subtaskTableView.reloadData()
+        subtaskTableView.reloadData()
 
         delegate?.update()
         delegate?.expandedSection(button: collapseButton)
@@ -303,8 +312,10 @@ class TaskCell: UITableViewCell {
     @IBAction func collapseButtonTapped(_ sender: UIButton) {
         isExpanded.toggle()
         delegate?.update()
-        UIView.animate(withDuration: 0.25, delay: 0, animations: {
-            self.subtaskStackView.isHidden.toggle()
+        UIView.animate(withDuration: 0.2, delay: 0, animations: { [weak self] in
+            guard let self else { return }
+            self.subtaskStackView.alpha = self.isExpanded ? 1 : 0
+            self.subtaskStackView.isHidden = !self.isExpanded
         })
         rotateImage(isExpanded)
         delegate?.expandedSection(button: sender)
@@ -319,11 +330,16 @@ extension TaskCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = subtaskTableView.dequeueReusableCell(withIdentifier: "subtaskCell")
         guard let subtaskCell = cell as? SubtaskCell else { return SubtaskCell() }
+        subtaskCell.selectionStyle = .none
         subtaskCell.textLabel?.text = self.cellTask.subtaks[indexPath.row].name
         if cellTask.subtaks[indexPath.row].isCurrent {
             subtaskCell.textLabel?.alpha = 1
+            subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+            subtaskCell.dotView.backgroundColor = .label
         } else {
             subtaskCell.textLabel?.alpha = 0.15
+            subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+            subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
         }
         subtaskCell.backgroundColor = .clear
         return subtaskCell
@@ -345,6 +361,22 @@ extension TaskCell: UITableViewDelegate {
         cellTask.subtaks[indexPath.row].isCurrent.toggle()
         delegate?.updateTaskStatus(task: cellTask, index: index)
         subtaskTableView.deselectRow(at: indexPath, animated: true)
-        subtaskTableView.reloadRows(at: [indexPath], with: .automatic)
+        
+        guard let subtaskCell = subtaskTableView.cellForRow(at: indexPath) as? SubtaskCell else { return }
+        
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            guard let self else { return }
+            if self.cellTask.subtaks[indexPath.row].isCurrent {
+                subtaskCell.textLabel?.alpha = 1
+                subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+                subtaskCell.dotView.backgroundColor = .label
+            } else {
+                subtaskCell.textLabel?.alpha = 0.15
+                subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+                subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
+            }
+        })
+
+//        subtaskTableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

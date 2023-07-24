@@ -52,20 +52,6 @@ class TaskListViewController: UIViewController {
         super.viewWillAppear(animated)
         updateTasks()
         tableView.reloadData()
-        
-        
-        
-//        updateTasks()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            self.tableView.beginUpdates()
-//            for cell in self.tableView.visibleCells {
-//                if let cell = cell as? TaskCell {
-//                    cell.setColor("red", isActive: true, task: self.currentTasks[cell.index])
-//
-//                }
-//            }
-//            self.tableView.endUpdates()
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

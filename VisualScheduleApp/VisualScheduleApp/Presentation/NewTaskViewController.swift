@@ -46,6 +46,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
             navigationItem.title = "Edit task"
             deleteButton.isHidden = false
             
+            if let task { prioritySwitch.isOn = task.isActive }
             nameField.text = task?.title
             descriptionField.text = task?.description
             emojiButton.setTitle(task?.symbol, for: .normal)
@@ -58,7 +59,9 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
             let uiColorDark = getDarkColorScheme(from: emojiImage)
             
             let accentColor = self.traitCollection.userInterfaceStyle == .dark ? uiColorDark : uiColorLight
-            view.backgroundColor = accentColor
+            if emojiButton.titleLabel?.text != "?" {
+                view.backgroundColor = accentColor
+            }
         }
 
         nameField.delegate = self
@@ -124,7 +127,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         switch state {
         case .edit:
             guard let task else { return }
-            var updatedTask = Task(symbol: emojiButton.title(for: .normal) ?? task.symbol,
+            let updatedTask = Task(symbol: emojiButton.title(for: .normal) ?? task.symbol,
                                    title: nameText, description: descriptionField.text,
                                    color: color, isActive: prioritySwitch.isOn,
                                    subtasks: taskSubtasks,
