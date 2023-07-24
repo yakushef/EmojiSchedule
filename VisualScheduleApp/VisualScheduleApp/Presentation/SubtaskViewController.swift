@@ -23,6 +23,13 @@ class SubtaskViewController: UIViewController {
     }
     @IBOutlet weak var subtaskTableView: UITableView!
     
+    @IBAction func editButtonTapped() {
+//        let editingState = !self.subtaskTableView.isEditing
+//        self.setEditing(editingState, animated: true)
+        
+        self.dismiss(animated: true)
+    }
+    
     @IBAction func addButtonTapped(_ sender: UIButton) {
         let newSubtaskAlert = UIAlertController(title: "New subtask", message: "Enter text below" , preferredStyle: .alert)
         
@@ -42,7 +49,6 @@ class SubtaskViewController: UIViewController {
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
                 okAction.isEnabled = !(textField.text?.isEmpty ?? true)}
         }
-        
 
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -53,16 +59,50 @@ class SubtaskViewController: UIViewController {
         present(newSubtaskAlert, animated: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.setEditing(true, animated: true)
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        self.setEditing(false, animated: true)
         delegate.updateSubtasks(with: subtasks)
     }
 }
 
 extension SubtaskViewController: UITableViewDelegate {
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        subtaskTableView.setEditing(editing, animated: animated)
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            subtasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let item = subtasks[sourceIndexPath.row]
+        subtasks.remove(at: sourceIndexPath.row)
+        subtasks.insert(item, at: destinationIndexPath.row)
+    }
+    
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        if tableView.isEditing {
+//            return .delete
+//        } else {
+//            return .none
+//        }
+//    }
 }
 
 extension SubtaskViewController: UITableViewDataSource {

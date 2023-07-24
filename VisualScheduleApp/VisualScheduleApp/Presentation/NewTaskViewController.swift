@@ -138,10 +138,6 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         default:
             color = .taskRed()
         }
-        
-//        UIView.animate(withDuration: 0.5, animations: {
-//            self.view.backgroundColor = color
-//        })
     }
 }
 
