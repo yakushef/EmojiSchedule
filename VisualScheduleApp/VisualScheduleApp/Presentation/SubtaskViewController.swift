@@ -8,25 +8,21 @@
 import UIKit
 
 protocol SubtaskViewControllerDelegate {
-    func updateSubtasks(with subtasks: [String])
+    func updateSubtasks(with subtasks: [Subtask])
 }
 
 class SubtaskViewController: UIViewController {
     
     var delegate: SubtaskViewControllerDelegate!
-    var subtasks: [String] = []
+    var subtasks: [Subtask] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
+    
     @IBOutlet weak var subtaskTableView: UITableView!
     
     @IBAction func editButtonTapped() {
-//        let editingState = !self.subtaskTableView.isEditing
-//        self.setEditing(editingState, animated: true)
-        
         self.dismiss(animated: true)
     }
     
@@ -37,7 +33,7 @@ class SubtaskViewController: UIViewController {
             let textField = newSubtaskAlert.textFields?.first
             if let text = textField?.text,
                !text.isEmpty {
-                self.subtasks.append(text)
+                self.subtasks.append(Subtask(name: text))
                 self.subtaskTableView.reloadData()
             }
         }
@@ -50,7 +46,6 @@ class SubtaskViewController: UIViewController {
                 okAction.isEnabled = !(textField.text?.isEmpty ?? true)}
         }
 
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         newSubtaskAlert.addAction(okAction)
@@ -114,9 +109,7 @@ extension SubtaskViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "subtaskListCell") else {
             return UITableViewCell()
         }
-        cell.textLabel?.text = subtasks[indexPath.row]
+        cell.textLabel?.text = subtasks[indexPath.row].name
         return cell
     }
-    
-    
 }

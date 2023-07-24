@@ -12,6 +12,16 @@ enum TaskColors: String, Codable {
     case taskMint = "TaskMint"
 }
 
+struct Subtask: Codable {
+    var name: String
+    var isCurrent: Bool
+    
+    init(name: String) {
+        self.name = name
+        self.isCurrent = true
+    }
+}
+
 struct emojiColor: Codable {
     var r: Float
     var g: Float
@@ -33,7 +43,7 @@ struct Task: Codable {
     var description: String
     var color: String
     
-    var subtaks: [String]
+    var subtaks: [Subtask]
     
     var isActive: Bool
     var isCurrent: Bool
@@ -43,7 +53,7 @@ struct Task: Codable {
     
     let creationDate: Date
     
-    init(symbol: String = "🦦", title: String = "Test", description: String = "MIC CHECK 1-2", color: TaskColors = .taskRed, isActive: Bool = true, subtasks: [String] = [], colorLight: emojiColor = emojiColor(r: 0, g: 0, b: 0), colorDark: emojiColor = emojiColor(r: 1, g: 1, b: 1)) {
+    init(symbol: String = "🦦", title: String = "Test", description: String = "MIC CHECK 1-2", color: TaskColors = .taskRed, isActive: Bool = true, subtasks: [Subtask] = [], colorLight: emojiColor = emojiColor(r: 0, g: 0, b: 0), colorDark: emojiColor = emojiColor(r: 1, g: 1, b: 1)) {
         self.symbol = symbol
         self.title = title
         self.description = description

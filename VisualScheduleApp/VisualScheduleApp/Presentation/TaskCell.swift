@@ -164,7 +164,6 @@ class TaskCell: UITableViewCell {
                 self.bottomLine.alpha = 1
             }
         })
-
     }
     
     
@@ -301,8 +300,6 @@ class TaskCell: UITableViewCell {
     }
     
     
-    
-    
     @IBAction func collapseButtonTapped(_ sender: UIButton) {
         isExpanded.toggle()
         delegate?.update()
@@ -320,10 +317,16 @@ extension TaskCell: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "subtaskCell")
-        cell.textLabel?.text = self.cellTask.subtaks[indexPath.row]
-        cell.backgroundColor = .clear
-        return cell
+        let cell = subtaskTableView.dequeueReusableCell(withIdentifier: "subtaskCell")
+        guard let subtaskCell = cell as? SubtaskCell else { return SubtaskCell() }
+        subtaskCell.textLabel?.text = self.cellTask.subtaks[indexPath.row].name
+        if cellTask.subtaks[indexPath.row].isCurrent {
+            subtaskCell.textLabel?.alpha = 1
+        } else {
+            subtaskCell.textLabel?.alpha = 0.15
+        }
+        subtaskCell.backgroundColor = .clear
+        return subtaskCell
     }
 }
 
@@ -338,6 +341,10 @@ extension TaskCell: UITableViewDelegate {
         return 0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        cellTask.subtaks[indexPath.row].isCurrent.toggle()
+        delegate?.updateTaskStatus(task: cellTask, index: index)
         subtaskTableView.deselectRow(at: indexPath, animated: true)
+        subtaskTableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

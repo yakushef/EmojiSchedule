@@ -151,13 +151,27 @@
                                                                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <prototypes>
-                                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="subtaskCell" id="c2u-GN-gYS" customClass="SubtaskCell" customModule="VisualScheduleApp" customModuleProvider="target">
+                                                                        <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="subtaskCell" id="c2u-GN-gYS" customClass="SubtaskCell" customModule="VisualScheduleApp" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="50" width="254" height="44"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
-                                                                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c2u-GN-gYS" id="1gb-FH-ons">
+                                                                            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c2u-GN-gYS" id="1gb-FH-ons">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="254" height="44"/>
                                                                                 <autoresizingMask key="autoresizingMask"/>
+                                                                                <subviews>
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hho-m8-Kaj">
+                                                                                        <rect key="frame" x="100" y="13" width="18" height="18"/>
+                                                                                        <color key="backgroundColor" systemColor="labelColor"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="height" constant="18" id="fP4-5k-Ly0"/>
+                                                                                            <constraint firstAttribute="width" constant="18" id="kjs-EW-8GH"/>
+                                                                                        </constraints>
+                                                                                    </view>
+                                                                                </subviews>
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <constraints>
+                                                                                    <constraint firstItem="hho-m8-Kaj" firstAttribute="centerY" secondItem="1gb-FH-ons" secondAttribute="centerY" id="E1K-ET-kzF"/>
+                                                                                    <constraint firstItem="hho-m8-Kaj" firstAttribute="leading" secondItem="1gb-FH-ons" secondAttribute="leading" constant="100" id="p6E-s7-NpZ"/>
+                                                                                </constraints>
                                                                             </tableViewCellContentView>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </tableViewCell>
@@ -241,7 +255,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2274" y="3"/>
+            <point key="canvasLocation" x="2273.8461538461538" y="2.8436018957345972"/>
         </scene>
         <!--My routines-->
         <scene sceneID="gfe-tJ-1SG">
@@ -261,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DtX-O9-9tW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3180" y="-499"/>
+            <point key="canvasLocation" x="4077" y="-740"/>
         </scene>
         <!--Edit task-->
         <scene sceneID="kZF-Vv-lef">
@@ -314,7 +328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHj-iq-4ZD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4686" y="26"/>
+            <point key="canvasLocation" x="4992" y="3"/>
         </scene>
         <!--Add new task-->
         <scene sceneID="jTm-KA-Dik">
@@ -482,7 +496,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jz-ss-bNy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3180" y="434"/>
+            <point key="canvasLocation" x="3180" y="333"/>
         </scene>
         <!--Subtask View Controller-->
         <scene sceneID="5mT-35-qn9">
@@ -492,21 +506,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDk-Xx-kWi">
-                                <rect key="frame" x="16" y="20" width="54" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Byw-8S-jFk">
+                                <rect key="frame" x="323" y="21" width="50" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="labelColor"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Edit"/>
-                                <connections>
-                                    <action selector="editButtonTapped" destination="ISa-kz-snm" eventType="touchUpInside" id="Nos-eA-D0p"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Byw-8S-jFk">
-                                <rect key="frame" x="319" y="20" width="55" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" systemColor="labelColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Add"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
                                     <action selector="addButtonTapped:" destination="ISa-kz-snm" eventType="touchUpInside" id="rPM-b0-1as"/>
                                 </connections>
@@ -529,6 +533,15 @@
                                     <outlet property="delegate" destination="ISa-kz-snm" id="o1o-gn-y9E"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDk-Xx-kWi">
+                                <rect key="frame" x="16" y="21" width="50" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="editButtonTapped" destination="ISa-kz-snm" eventType="touchUpInside" id="Nos-eA-D0p"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BDn-21-kXT"/>
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
@@ -545,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOs-9Q-P28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4094" y="884"/>
+            <point key="canvasLocation" x="4077" y="665"/>
         </scene>
         <!--Item-->
         <scene sceneID="EzZ-qe-BaN">

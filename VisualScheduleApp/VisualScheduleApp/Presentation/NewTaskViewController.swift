@@ -21,7 +21,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
     
     var storage: TaskStorageService!
     
-    var newTaskSubtasks: [String] = []
+    var newTaskSubtasks: [Subtask] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +51,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
 //         Pass the selected object to the new view controller
         
         if let vc = segue.destination as? SubtaskViewController {
-            vc.subtasks = subtasksTestSwitch.isOn ? ["TEsT 1", "tEst 2", "test 3"] : newTaskSubtasks
+            vc.subtasks = newTaskSubtasks
             vc.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
@@ -113,7 +113,12 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         
         let colorDark = uiColorDark.getEmojiColor()
             
-        let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)], title: nameText, description: descriptionField.text, color: color, isActive: prioritySwitch.isOn, subtasks: newTaskSubtasks, colorLight: colorLight, colorDark: colorDark)
+        let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)],
+                           title: nameText, description: descriptionField.text,
+                           color: color, isActive: prioritySwitch.isOn,
+                           subtasks: newTaskSubtasks,
+                           colorLight: colorLight,
+                           colorDark: colorDark)
         storage.add(task: newTask)
         navigationController?.popViewController(animated: true)
     }
@@ -237,7 +242,7 @@ extension NewTaskViewController: UITextViewDelegate {
 }
 
 extension NewTaskViewController: SubtaskViewControllerDelegate {
-    func updateSubtasks(with subtasks: [String]) {
+    func updateSubtasks(with subtasks: [Subtask]) {
         newTaskSubtasks = subtasks
     }    
     
