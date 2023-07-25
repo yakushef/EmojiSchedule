@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC1B258F2A7058AB00781AAD /* ColorKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC1B258E2A7058AB00781AAD /* ColorKit */; };
 		BC1F7BD12A2FE2240024B3E3 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BBC2A2FE2240024B3E3 /* PriorityQueue.swift */; };
 		BC1F7BD22A2FE2240024B3E3 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BBD2A2FE2240024B3E3 /* Heap.swift */; };
 		BC1F7BD32A2FE2240024B3E3 /* CountedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BBE2A2FE2240024B3E3 /* CountedSet.swift */; };
@@ -79,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9516522A2B9E5C00FBE6C5 /* MCEmojiPicker in Frameworks */,
+				BC1B258F2A7058AB00781AAD /* ColorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +198,7 @@
 			name = VisualScheduleApp;
 			packageProductDependencies = (
 				BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */,
+				BC1B258E2A7058AB00781AAD /* ColorKit */,
 			);
 			productName = VisualScheduleApp;
 			productReference = BCE8342A2A041D550098AC7E /* VisualScheduleApp.app */;
@@ -227,6 +230,7 @@
 			mainGroup = BCE834212A041D550098AC7E;
 			packageReferences = (
 				BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+				BC1B258D2A7058AB00781AAD /* XCRemoteSwiftPackageReference "ColorKit" */,
 			);
 			productRefGroup = BCE8342B2A041D550098AC7E /* Products */;
 			projectDirPath = "";
@@ -508,6 +512,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC1B258D2A7058AB00781AAD /* XCRemoteSwiftPackageReference "ColorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Boris-Em/ColorKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
@@ -519,6 +531,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC1B258E2A7058AB00781AAD /* ColorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC1B258D2A7058AB00781AAD /* XCRemoteSwiftPackageReference "ColorKit" */;
+			productName = ColorKit;
+		};
 		BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
