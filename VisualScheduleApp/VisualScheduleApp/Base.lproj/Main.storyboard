@@ -83,7 +83,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ev-Uh-bRT" userLabel="SubtaskLine">
-                                                    <rect key="frame" x="64" y="93" width="4" height="119"/>
+                                                    <rect key="frame" x="64" y="93" width="4" height="38"/>
                                                     <color key="backgroundColor" systemColor="labelColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="4" id="eiX-oX-lF0"/>
@@ -233,7 +233,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="zcy-h4-rB9" secondAttribute="bottom" priority="100" constant="4" id="WbC-iM-ACt"/>
                                                 <constraint firstItem="wCl-gL-zRo" firstAttribute="top" secondItem="zQS-ji-LIe" secondAttribute="top" constant="18" id="dRJ-eU-Sfw"/>
                                                 <constraint firstAttribute="trailing" secondItem="wCl-gL-zRo" secondAttribute="trailing" priority="999" constant="16" id="i3A-3y-frK"/>
-                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="bottom" secondItem="zQS-ji-LIe" secondAttribute="bottom" constant="-40" id="lHM-Tq-sOW"/>
+                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="bottom" secondItem="wCl-gL-zRo" secondAttribute="bottom" priority="200" constant="-22" id="lHM-Tq-sOW"/>
                                                 <constraint firstAttribute="trailing" secondItem="zcy-h4-rB9" secondAttribute="trailing" constant="12" id="lVW-G9-ZDA"/>
                                                 <constraint firstItem="zcy-h4-rB9" firstAttribute="leading" secondItem="zQS-ji-LIe" secondAttribute="leading" constant="12" id="wFT-Ff-rAL"/>
                                             </constraints>
