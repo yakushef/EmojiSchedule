@@ -190,9 +190,14 @@ extension NewTaskViewController: MCEmojiPickerDelegate {
               let accentColor = palette?.secondary else { return .gray }
         
         if bgColor.saturation < accentColor.saturation {
-            color = accentColor.withBrightness(1)?.withSaturation(0.6) ?? accentColor
+            color = accentColor
         } else {
-            color = bgColor.withBrightness(1)?.withSaturation(0.6) ?? bgColor
+            color = bgColor
+        }
+        if color.saturation < 0.25 {
+            color = color.withBrightness(0.85) ?? color
+        } else {
+            color = color.withBrightness(1)?.withSaturation(0.6) ?? color
         }
         if color.luminance > 0.85 {
             color = color.withBrightness(0.85) ?? .gray
@@ -211,9 +216,15 @@ extension NewTaskViewController: MCEmojiPickerDelegate {
               let accentColor = palette?.secondary else { return .gray }
         
         if bgColor.saturation < accentColor.saturation {
-            color = accentColor.withBrightness(0.8)?.withSaturation(0.8) ?? accentColor
+            color = accentColor
         } else {
-            color = bgColor.withBrightness(0.8)?.withSaturation(0.8) ?? bgColor
+            color = bgColor
+        }
+        
+        if color.saturation < 0.25 {
+            color = color.withBrightness(0.1) ?? color
+        } else {
+            color = color.withBrightness(0.8)?.withSaturation(0.8) ?? color
         }
         if color.luminance < 0.25 {
             color = color.withBrightness(0.78) ?? .gray
