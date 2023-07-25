@@ -50,8 +50,12 @@ class TaskListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.alpha = 0
         updateTasks()
         tableView.reloadData()
+        UIView.animate(withDuration: 0.5, delay: 0.1, animations: { [weak self] in
+            self?.tableView.alpha = 1
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
