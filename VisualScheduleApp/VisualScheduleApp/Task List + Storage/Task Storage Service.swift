@@ -21,6 +21,8 @@ protocol TaskStorageService {
 
 final class TaskStorageServiceImplementation: TaskStorageService {
     
+    private let calendar = Calendar.current
+    
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let userDefaults = UserDefaults.standard
@@ -29,8 +31,9 @@ final class TaskStorageServiceImplementation: TaskStorageService {
     }
     
     func checkIfExpired() {
-        let tasks = taskList
-        let unexpiredTasks = tasks.filter { $0.isCurrent || $0.creationDate != Date() }
+        
+        let unexpiredTasks = taskList.filter { !$0.isCurrent || calendar.isDate($0.creationDate, equalTo: Date(), toGranularity: .day) }
+        
         taskList = unexpiredTasks
         updateAllTasks(taskList: unexpiredTasks)
     }
