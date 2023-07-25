@@ -12,11 +12,12 @@ protocol TaskCellDelegate: AnyObject {
     func expandedSection(button: UIButton)
     func reorderingCells(isActive: Bool)
     func updateTaskStatus(task: Task, index: Int)
-    
-  //  var isExpended: Bool { get set }
 }
 
 class TaskCell: UITableViewCell {
+    
+    @IBOutlet weak var subtaskLine: UIView!
+    @IBOutlet weak var underline: UIStackView!
     
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var emojiBackground: UIView!
@@ -36,9 +37,11 @@ class TaskCell: UITableViewCell {
     
     var cellTask: Task!
     
-    var index = 0
-    
-//    var subtaskCount: Int
+    lazy var index = {
+        if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
+            return indexPath.row
+        } else { return 0 }
+    }
     
     var isExpanded = true
     var isTop = false
@@ -83,29 +86,45 @@ class TaskCell: UITableViewCell {
         }
     
     func currentColor() {
-        let accentColor = self.traitCollection.userInterfaceStyle == .dark ? cellTask.colorDark : cellTask.colorLight
-        background.layer.borderColor = accentColor.getUIColor().cgColor
-        background.backgroundColor = accentColor.getUIColor().withAlphaComponent(active ? 1 : 0.1)
-        for cell in subtaskTableView.visibleCells {
-            guard let subtaskCell = cell as? SubtaskCell else { return }
-            if subtaskCell.textLabel?.alpha == 1 {
-                subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
-            } else {
-                subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
-                subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            guard let self else {return}
+            let accentColor = self.traitCollection.userInterfaceStyle == .dark ? cellTask.colorDark : cellTask.colorLight
+            background.layer.borderColor = accentColor.getUIColor().cgColor
+            background.backgroundColor = accentColor.getUIColor().withAlphaComponent(active ? 1 : 0.1)
+            for cell in subtaskTableView.visibleCells {
+                guard let subtaskCell = cell as? SubtaskCell else { return }
+                if subtaskCell.textLabel?.alpha == 1 {
+                    subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+                } else {
+                    subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+                    subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
+                }
             }
-        }
+        })
     }
     
     func setInactiveColor() {
-        if self.traitCollection.userInterfaceStyle == .light {
-            let color = active ? UIColor.systemGray5 : UIColor.systemGray4
-            background.backgroundColor = color.withAlphaComponent(active ? 1 : 0.1)
-            background.layer.borderColor = color.cgColor
-        } else {
-            background.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(active ? 1 : 0.1)
-            background.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            guard let self else {return}
+            if self.traitCollection.userInterfaceStyle == .light {
+                let color = active ? UIColor.systemGray5 : UIColor.systemGray4
+                background.backgroundColor = color.withAlphaComponent(active ? 1 : 0.1)
+                background.layer.borderColor = color.cgColor
+            } else {
+                background.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(active ? 1 : 0.1)
+                background.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+            }
+            for cell in subtaskTableView.visibleCells {
+                guard let subtaskCell = cell as? SubtaskCell else { return }
+                if subtaskCell.textLabel?.alpha == 1 {
+                    subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+                } else {
+                    subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
+                    subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
+                }
+            }
         }
+        )
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -124,18 +143,13 @@ class TaskCell: UITableViewCell {
         
         let clearView = UIView()
         clearView.backgroundColor = .clear
-        //backgroundView = clearView
-        //backgroundView = blurView
         
         subtaskTableView.backgroundColor = .clear
         subtaskTableView.dataSource = self
         subtaskTableView.delegate = self
-        //topLine.isHidden = true
-        //bottomLine.isHidden = true
+
         topLine.alpha = 0
         bottomLine.alpha = 0
-//        subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(subtaskCount * 44)).isActive = true
-//        subtaskTableView.reloadData()
     }
     
     func updateSubtasks() {
@@ -183,40 +197,28 @@ class TaskCell: UITableViewCell {
     }
     
     func setColor(_ taskColor: String, isActive: Bool, task: Task, height: Int) {
-   //     print(taskColor)
+
         cellTask = task
         isDone = cellTask.isCurrent
         active = isActive
         color = taskColor
 
-//        background.layer.borderColor = UIColor(named: taskColor)?.cgColor
-//        background.layer.borderWidth = 4
-//        background.backgroundColor = UIColor(named: taskColor)?.withAlphaComponent(active ? 1 : 0.1)
-//                background.layer.borderColor = accentColor?.cgColor
                 background.layer.borderWidth = 4
-//                background.backgroundColor = accentColor?.withAlphaComponent(active ? 1 : 0.1)
+
         emojiBackground.layer.borderWidth = 0
         currentColor()
         label = task.title
-//        subtaskCount = cellTask.subtaks.count
+
         collapseButton.isHidden = task.subtaks.isEmpty
+        subtaskLine.isHidden = task.subtaks.isEmpty
+        underline.isHidden = task.subtaks.isEmpty
         subtaskStackView.isHidden = task.subtaks.isEmpty
         descriptionLabel.isHidden = task.description.isEmpty
-//        print(cellTask.subtaks)
-//        let heightPriority = UILayoutPriority(rawValue: 1000)
-//        let heightConstraint = subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(cellTask.subtaks.count * 44))
-//        heightConstraint.priority = heightPriority
-//        heightConstraint.isActive = true
-        
-        
         
         subtaskTableView.reloadData()
-//        subtaskTableView.heightAnchor.constraint(equalToConstant: subtaskTableView.bounds.height).isActive = true
-//        subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(cellTask.subtaks.count * 44)).isActive = true
          subtaskTableView.removeConstraints(subtaskTableView.constraints.filter { $0.firstAttribute == .height })
         subtaskTableView.heightAnchor.constraint(equalToConstant: CGFloat(height)).isActive = true
         taskDoneVisuals()
-//        subtaskTableView.exerciseAmbiguityInLayout()
     }
     
     func rotateImage(_ expanded: Bool) {
@@ -239,8 +241,6 @@ class TaskCell: UITableViewCell {
             titleLabel.alpha = 0.5
             descriptionLabel.alpha = 0.5
             emojiButton.alpha = 0.5
-//            background.backgroundColor = UIColor.gray.withAlphaComponent(active ? 1 : 0.1)
-//            background.layer.borderColor = UIColor.gray.cgColor
             setInactiveColor()
             
         } else {
@@ -255,11 +255,11 @@ class TaskCell: UITableViewCell {
     }
     
     @IBAction func emojiTapped(_ sender: UIButton) {
-//        print("!")
+
         isDone.toggle()
         cellTask.isCurrent = isDone
         taskDoneVisuals()
-        delegate?.updateTaskStatus(task: cellTask, index: index)
+        delegate?.updateTaskStatus(task: cellTask, index: index())
         
         UIView.animate(withDuration: 0.25,
                        delay: 0,
@@ -267,7 +267,6 @@ class TaskCell: UITableViewCell {
                        initialSpringVelocity: CGFloat(6.0),
                        options: UIView.AnimationOptions.allowUserInteraction,
                        animations: {
-//                        sender.transform = CGAffineTransform.identity
             sender.transform = CGAffineTransform(scaleX: 1, y: 1)
             sender.alpha = self.isDone ? 0.5 : 1
                        },
@@ -282,7 +281,6 @@ class TaskCell: UITableViewCell {
                        initialSpringVelocity: CGFloat(6.0),
                        options: UIView.AnimationOptions.allowUserInteraction,
                        animations: {
-//                        sender.transform = CGAffineTransform.identity
             sender.transform = CGAffineTransform(scaleX: 1, y: 1)
             sender.alpha = self.isDone ? 0.5 : 1
                        },
@@ -300,7 +298,6 @@ class TaskCell: UITableViewCell {
                        initialSpringVelocity: CGFloat(6.0),
                        options: UIView.AnimationOptions.allowUserInteraction,
                        animations: {
-//                        sender.transform = CGAffineTransform.identity
             sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             sender.alpha = 0.5
                        },
@@ -308,16 +305,23 @@ class TaskCell: UITableViewCell {
         )
     }
     
-    
-    @IBAction func collapseButtonTapped(_ sender: UIButton) {
-        isExpanded.toggle()
-        delegate?.update()
+    func expand() {
         UIView.animate(withDuration: 0.2, delay: 0, animations: { [weak self] in
             guard let self else { return }
             self.subtaskStackView.alpha = self.isExpanded ? 1 : 0
             self.subtaskStackView.isHidden = !self.isExpanded
+            self.subtaskLine.alpha = self.isExpanded ? 1 : 0
+            self.subtaskLine.isHidden = !self.isExpanded
         })
         rotateImage(isExpanded)
+    }
+    
+    @IBAction func collapseButtonTapped(_ sender: UIButton) {
+        isExpanded.toggle()
+        cellTask.isExpanded = isExpanded
+        delegate?.updateTaskStatus(task: cellTask, index: index())
+        delegate?.update()
+        expand()
         delegate?.expandedSection(button: sender)
     }
 }
@@ -337,7 +341,7 @@ extension TaskCell: UITableViewDataSource {
             subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
             subtaskCell.dotView.backgroundColor = .label
         } else {
-            subtaskCell.textLabel?.alpha = 0.15
+            subtaskCell.textLabel?.alpha = 0.25
             subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
             subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
         }
@@ -359,7 +363,7 @@ extension TaskCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         cellTask.subtaks[indexPath.row].isCurrent.toggle()
-        delegate?.updateTaskStatus(task: cellTask, index: index)
+        delegate?.updateTaskStatus(task: cellTask, index: index())
         subtaskTableView.deselectRow(at: indexPath, animated: true)
         
         guard let subtaskCell = subtaskTableView.cellForRow(at: indexPath) as? SubtaskCell else { return }
@@ -371,12 +375,10 @@ extension TaskCell: UITableViewDelegate {
                 subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
                 subtaskCell.dotView.backgroundColor = .label
             } else {
-                subtaskCell.textLabel?.alpha = 0.15
+                subtaskCell.textLabel?.alpha = 0.25
                 subtaskCell.dotView.layer.borderColor = UIColor.label.cgColor
                 subtaskCell.dotView.backgroundColor = cellTask.isActive ? background.backgroundColor : .systemBackground
             }
         })
-
-//        subtaskTableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

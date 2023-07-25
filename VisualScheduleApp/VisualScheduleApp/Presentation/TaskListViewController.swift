@@ -69,8 +69,6 @@ class TaskListViewController: UIViewController {
             viewController.state = .edit
             viewController.task = currentTasks[indexPath.row]
             viewController.taskIndex = indexPath.row
-           // viewController.editedTask = currentTasks[indexPath.row]
-          //  viewController.taskNumber = indexPath.row
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -81,18 +79,18 @@ class TaskListViewController: UIViewController {
     func configureCell(cell: TaskCell, indexPath: IndexPath) {
         
         cell.delegate = self
-        cell.index = indexPath.row
         
         let task = currentTasks[indexPath.row]
         
         cell.collapseButton.tag = indexPath.row
         cell.emojiButton.setTitle(task.symbol, for: .normal)
         cell.setColor(task.color, isActive: task.isActive, task: task, height: task.subtaks.count * 44)
-        print("index \(indexPath.row) = \(task.subtaks.count) subtasks")
-        
         
         cell.titleLabel.text = task.title
         cell.descriptionLabel.text = task.description
+        
+        cell.isExpanded = task.isExpanded
+        cell.expand()
         
         cell.isTop = { indexPath.row == 0 }()
         cell.isBottom = { indexPath.row == currentTasks.count - 1 }()
