@@ -179,44 +179,69 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
 extension NewTaskViewController: MCEmojiPickerDelegate {
     
     func getLightColorScheme(from emojiImage: UIImage) -> UIColor {
-        var uiColorLight = emojiImage.createPalette().lightVibrantColor
-
-        if uiColorLight == nil {
-            let mitedUIColorLight = emojiImage.createPalette().vibrantColor
-            var hue: CGFloat = 0
-            var sat: CGFloat = 0
-            var bright: CGFloat = 0
-            mitedUIColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
-//            sat *= 3
-            bright *= 1
-            sat *= 0.7
-            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
-        } else {
-            var hue: CGFloat = 0
-            var sat: CGFloat = 0
-            var bright: CGFloat = 0
-            uiColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
-            bright *= 0.9
-            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
-        }
-        return uiColorLight ?? UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        guard let colors = emojiImage.getColors() else { return .gray }
+        let colorArray = [colors.background ?? .gray,
+                          colors.detail ?? .gray,
+                          colors.primary ?? .gray,
+                          colors.secondary ?? .gray]
+        
+        print(colorArray)
+        
+        let lightestColor = colorArray.min { $0.luminance < $1.luminance }
+        
+        return colors.primary ?? .gray
+//        var uiColorLight = emojiImage.createPalette().lightVibrantColor
+//
+//        if uiColorLight == nil {
+//            let mitedUIColorLight = emojiImage.createPalette().vibrantColor
+//            var hue: CGFloat = 0
+//            var sat: CGFloat = 0
+//            var bright: CGFloat = 0
+//            mitedUIColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+////            sat *= 3
+//            bright *= 1
+//            sat *= 0.7
+//            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+//        } else {
+//            var hue: CGFloat = 0
+//            var sat: CGFloat = 0
+//            var bright: CGFloat = 0
+//            uiColorLight?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+//            bright *= 0.9
+//            uiColorLight = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+//        }
+//        return uiColorLight ?? UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         }
     
     func getDarkColorScheme(from emojiImage: UIImage) -> UIColor {
         
-        var uiColorDark = emojiImage.createPalette().mutedColor
-        if uiColorDark == nil {
-            let mitedUIColorDark = emojiImage.createPalette().darkVibrantColor
-            var hue: CGFloat = 0
-            var sat: CGFloat = 0
-            var bright: CGFloat = 0
-            mitedUIColorDark?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
-//            sat *= 2
-//            bright *= 0.6
-
-            uiColorDark = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
-        }
-        return uiColorDark ?? UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+            guard let colors = emojiImage.getColors() else { return .gray }
+        let colorArray = [colors.background ?? .gray,
+                              colors.detail ?? .gray,
+                              colors.primary ?? .gray,
+                              colors.secondary ?? .gray]
+        
+        print(colorArray)
+            
+            let darkestColor = colorArray.max { $0.luminance < $1.luminance }
+            
+            return colors.secondary ?? .gray
+        
+        
+        
+//        var uiColorDark = emojiImage.createPalette().mutedColor
+//        if uiColorDark == nil {
+//            let mitedUIColorDark = emojiImage.createPalette().darkVibrantColor
+//            var hue: CGFloat = 0
+//            var sat: CGFloat = 0
+//            var bright: CGFloat = 0
+//            mitedUIColorDark?.getHue(&hue, saturation: &sat, brightness: &bright, alpha: nil)
+////            sat *= 2
+////            bright *= 0.6
+//
+//            uiColorDark = UIColor(hue: hue, saturation: sat, brightness: bright, alpha: 1.0)
+//        }
+//        return uiColorDark ?? UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

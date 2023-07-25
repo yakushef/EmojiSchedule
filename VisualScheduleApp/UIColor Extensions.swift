@@ -7,6 +7,23 @@
 
 import UIKit
 
+extension UIColor {
+    var luminance: CGFloat {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+
+        getRed(&r, green: &g, blue: &b, alpha: &a)
+
+        let red = r < 0.03928 ? r / 12.92 : pow((r + 0.055) / 1.055, 2.4)
+        let green = g < 0.03928 ? g / 12.92 : pow((g + 0.055) / 1.055, 2.4)
+        let blue = b < 0.03928 ? b / 12.92 : pow((b + 0.055) / 1.055, 2.4)
+
+        return (red * 0.2126) + (green * 0.7152) + (blue * 0.0722)
+    }
+}
+
 extension String {
     func image() -> UIImage? {
         let size = CGSize(width: 40, height: 40)

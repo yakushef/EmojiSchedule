@@ -27,6 +27,7 @@
 		BCB69A632A1922FB00CC221A /* RoutinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB69A622A1922FB00CC221A /* RoutinesViewController.swift */; };
 		BCB69A652A19253400CC221A /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB69A642A19253400CC221A /* EditTaskViewController.swift */; };
 		BCB69A682A192E7A00CC221A /* Task Storage Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB69A672A192E7A00CC221A /* Task Storage Service.swift */; };
+		BCD827E72A70415A00419B31 /* UIImageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD827E62A70415A00419B31 /* UIImageColors.swift */; };
 		BCE8342E2A041D550098AC7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8342D2A041D550098AC7E /* AppDelegate.swift */; };
 		BCE834302A041D550098AC7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE8342F2A041D550098AC7E /* SceneDelegate.swift */; };
 		BCE834322A041D550098AC7E /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE834312A041D550098AC7E /* TaskListViewController.swift */; };
@@ -58,6 +59,7 @@
 		BCB69A622A1922FB00CC221A /* RoutinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesViewController.swift; sourceTree = "<group>"; };
 		BCB69A642A19253400CC221A /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		BCB69A672A192E7A00CC221A /* Task Storage Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task Storage Service.swift"; sourceTree = "<group>"; };
+		BCD827E62A70415A00419B31 /* UIImageColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageColors.swift; sourceTree = "<group>"; };
 		BCE8342A2A041D550098AC7E /* VisualScheduleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualScheduleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE8342D2A041D550098AC7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE8342F2A041D550098AC7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		BCE834412A041EA50098AC7E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BCD827E62A70415A00419B31 /* UIImageColors.swift */,
 				BC1F7BB42A2FE2240024B3E3 /* Palette */,
 				BCE834312A041D550098AC7E /* TaskListViewController.swift */,
 				BCE834422A041EC50098AC7E /* TaskCell.swift */,
@@ -255,6 +258,7 @@
 				BCAD29D02A1BD3EC004F7C50 /* UIColor Extensions.swift in Sources */,
 				BC1F7BD22A2FE2240024B3E3 /* Heap.swift in Sources */,
 				BCB69A682A192E7A00CC221A /* Task Storage Service.swift in Sources */,
+				BCD827E72A70415A00419B31 /* UIImageColors.swift in Sources */,
 				BCE834432A041EC50098AC7E /* TaskCell.swift in Sources */,
 				BC1F7BD92A2FE2240024B3E3 /* ColorCutQuantizer.swift in Sources */,
 				BC1F7BE22A30F9400024B3E3 /* SubtaskViewController.swift in Sources */,
