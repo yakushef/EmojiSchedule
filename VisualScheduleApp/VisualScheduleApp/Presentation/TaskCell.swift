@@ -210,7 +210,7 @@ class TaskCell: UITableViewCell {
         label = task.title
 
         collapseButton.isHidden = task.subtaks.isEmpty
-        subtaskLine.isHidden = task.subtaks.isEmpty
+        subtaskLine.isHidden = false
         underline.isHidden = task.subtaks.isEmpty
         subtaskStackView.isHidden = task.subtaks.isEmpty
         descriptionLabel.isHidden = task.description.isEmpty
@@ -311,7 +311,7 @@ class TaskCell: UITableViewCell {
             self.subtaskStackView.alpha = self.isExpanded ? 1 : 0
             self.subtaskStackView.isHidden = !self.isExpanded
             self.subtaskLine.alpha = self.isExpanded ? 1 : 0
-            self.subtaskLine.isHidden = !self.isExpanded
+            self.subtaskLine.isHidden = false
         })
         rotateImage(isExpanded)
     }

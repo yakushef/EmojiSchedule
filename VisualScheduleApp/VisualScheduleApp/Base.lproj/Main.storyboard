@@ -32,13 +32,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="252"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ev-Uh-bRT" userLabel="SubtaskLine">
-                                                    <rect key="frame" x="64" y="47" width="4" height="84"/>
-                                                    <color key="backgroundColor" systemColor="labelColor"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="4" id="eiX-oX-lF0"/>
-                                                    </constraints>
-                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcy-h4-rB9">
                                                     <rect key="frame" x="12" y="4" width="366" height="244"/>
                                                     <subviews>
@@ -88,6 +81,13 @@
                                                             <integer key="value" value="54"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ev-Uh-bRT" userLabel="SubtaskLine">
+                                                    <rect key="frame" x="64" y="93" width="4" height="119"/>
+                                                    <color key="backgroundColor" systemColor="labelColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="4" id="eiX-oX-lF0"/>
+                                                    </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gkm-e7-HvQ">
                                                     <rect key="frame" x="64" y="0.0" width="4" height="22"/>
@@ -221,10 +221,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="top" secondItem="kkq-fV-5VN" secondAttribute="bottom" constant="-46" id="2QG-yD-1mZ"/>
+                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="centerX" secondItem="kkq-fV-5VN" secondAttribute="centerX" id="0p7-wo-iDW"/>
+                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="top" secondItem="kkq-fV-5VN" secondAttribute="bottom" id="2QX-Nz-TEi"/>
                                                 <constraint firstItem="Gkm-e7-HvQ" firstAttribute="centerX" secondItem="Kdw-LA-L9x" secondAttribute="centerX" id="4NL-cs-A2k"/>
                                                 <constraint firstItem="zcy-h4-rB9" firstAttribute="top" secondItem="zQS-ji-LIe" secondAttribute="top" constant="4" id="4hK-Rz-CXx"/>
-                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="bottom" secondItem="yS4-Gf-RZO" secondAttribute="bottom" constant="-22" id="8HK-gr-ZOD"/>
                                                 <constraint firstItem="A4B-Wz-TnI" firstAttribute="centerX" secondItem="Kdw-LA-L9x" secondAttribute="centerX" id="FNo-mS-pMm"/>
                                                 <constraint firstItem="A4B-Wz-TnI" firstAttribute="top" secondItem="Kdw-LA-L9x" secondAttribute="top" constant="76" id="Jh2-h3-NsX"/>
                                                 <constraint firstItem="wCl-gL-zRo" firstAttribute="leading" secondItem="zQS-ji-LIe" secondAttribute="leading" constant="120" id="Jn7-li-ccQ"/>
@@ -233,9 +233,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="zcy-h4-rB9" secondAttribute="bottom" priority="100" constant="4" id="WbC-iM-ACt"/>
                                                 <constraint firstItem="wCl-gL-zRo" firstAttribute="top" secondItem="zQS-ji-LIe" secondAttribute="top" constant="18" id="dRJ-eU-Sfw"/>
                                                 <constraint firstAttribute="trailing" secondItem="wCl-gL-zRo" secondAttribute="trailing" priority="999" constant="16" id="i3A-3y-frK"/>
+                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="bottom" secondItem="zQS-ji-LIe" secondAttribute="bottom" constant="-40" id="lHM-Tq-sOW"/>
                                                 <constraint firstAttribute="trailing" secondItem="zcy-h4-rB9" secondAttribute="trailing" constant="12" id="lVW-G9-ZDA"/>
                                                 <constraint firstItem="zcy-h4-rB9" firstAttribute="leading" secondItem="zQS-ji-LIe" secondAttribute="leading" constant="12" id="wFT-Ff-rAL"/>
-                                                <constraint firstItem="5ev-Uh-bRT" firstAttribute="centerX" secondItem="kkq-fV-5VN" secondAttribute="centerX" id="yUf-us-Tzo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
