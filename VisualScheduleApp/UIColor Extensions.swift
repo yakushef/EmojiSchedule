@@ -8,6 +8,45 @@
 import UIKit
 
 extension UIColor {
+    var saturation: CGFloat {
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+
+        return saturation
+    }
+    
+    func withBrightness(_ brightness: CGFloat) -> UIColor? {
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        if getHue(&hue, saturation: &saturation, brightness: nil, alpha: &alpha) {
+            return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
+        } else {
+            return nil
+        }
+    }
+    
+    func withSaturation(_ saturation: CGFloat) -> UIColor? {
+        var hue: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        if getHue(&hue, saturation: nil, brightness: &brightness, alpha: &alpha) {
+            return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
+        } else {
+            return nil
+        }
+    }
+}
+
+
+
+extension UIColor {
     var luminance: CGFloat {
         var r: CGFloat = 0
         var g: CGFloat = 0

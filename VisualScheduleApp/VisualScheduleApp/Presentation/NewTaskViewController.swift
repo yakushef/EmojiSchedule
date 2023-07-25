@@ -130,7 +130,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
             guard let task else { return }
             let updatedTask = Task(symbol: emojiButton.title(for: .normal) ?? task.symbol,
                                    title: nameText, description: descriptionField.text,
-                                   color: color, isActive: prioritySwitch.isOn,
+                                   color: color, isActive: prioritySwitch.isOn, isCurrent: task.isCurrent,
                                    subtasks: taskSubtasks,
                                    colorLight: colorLight,
                                    colorDark: colorDark)
@@ -181,32 +181,47 @@ extension NewTaskViewController: MCEmojiPickerDelegate {
     
     func getLightColorScheme(from emojiImage: UIImage) -> UIColor {
         var colors: [UIColor] = []
+        if task?.symbol == "?" { return .lightGray }
         do { colors = try emojiImage.dominantColors() } catch { return .gray }
         let palette = ColorPalette(orderedColors: colors, ignoreContrastRatio: true)
+        var color = UIColor.gray
         
         guard let bgColor = palette?.background,
               let accentColor = palette?.secondary else { return .gray }
         
-        if bgColor.luminance < accentColor.luminance {
-            return accentColor
+        if bgColor.saturation < accentColor.saturation {
+            color = accentColor.withBrightness(1)?.withSaturation(0.6) ?? accentColor
         } else {
-            return bgColor
+            color = bgColor.withBrightness(1)?.withSaturation(0.6) ?? bgColor
         }
+        if color.luminance > 0.85 {
+            color = color.withBrightness(0.85) ?? .gray
+        }
+        return color
         }
     
     func getDarkColorScheme(from emojiImage: UIImage) -> UIColor {
         var colors: [UIColor] = []
+        if task?.symbol == "?" { return .darkGray }
         do { colors = try emojiImage.dominantColors() } catch { return .gray }
         let palette = ColorPalette(orderedColors: colors, ignoreContrastRatio: true)
+        var color = UIColor.gray
         
         guard let bgColor = palette?.background,
               let accentColor = palette?.secondary else { return .gray }
         
-        if bgColor.luminance > accentColor.luminance {
-            return accentColor
+        if bgColor.saturation < accentColor.saturation {
+            color = accentColor.withBrightness(0.8)?.withSaturation(0.8) ?? accentColor
         } else {
-            return bgColor
+            color = bgColor.withBrightness(0.8)?.withSaturation(0.8) ?? bgColor
         }
+        if color.luminance < 0.25 {
+            color = color.withBrightness(0.78) ?? .gray
+        }
+        if color.luminance < 0.85 {
+            color = color.withBrightness(0.78) ?? .gray
+        }
+        return color
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
