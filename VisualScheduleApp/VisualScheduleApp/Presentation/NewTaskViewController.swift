@@ -133,7 +133,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
                                    color: color, isActive: prioritySwitch.isOn, isCurrent: task.isCurrent,
                                    subtasks: taskSubtasks,
                                    colorLight: colorLight,
-                                   colorDark: colorDark)
+                                   colorDark: colorDark, isExpanded: task.isExpanded)
             storage.replace(taskNumber: taskIndex, with: updatedTask)
         case .add:
                 
