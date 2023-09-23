@@ -276,7 +276,6 @@ extension NewTaskViewController
 
     @objc func dismissKeyboard()
     {
-
         view.endEditing(true)
     }
 }
