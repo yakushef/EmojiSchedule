@@ -43,7 +43,7 @@ class TaskListViewController: UIViewController {
         
         // MARK: - User Defaults
         taskStorage = TaskStorageServiceImplementation()
-        taskStorage.firstRunCheck()
+//        taskStorage.firstRunCheck()
         
 //        updateTasks()
     }
@@ -91,7 +91,7 @@ class TaskListViewController: UIViewController {
         cell.setColor(task.color, isActive: task.isActive, task: task, height: task.subtaks.count * 44)
         
         cell.titleLabel.text = task.title
-        cell.descriptionLabel.text = task.description
+        cell.descriptionLabel.text = task.fullDescription
         
         cell.isExpanded = task.isExpanded
         cell.expand()

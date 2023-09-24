@@ -22,6 +22,8 @@
 		BC1F7BDC2A2FE2240024B3E3 /* UIImage+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC72A2FE2240024B3E3 /* UIImage+Palette.swift */; };
 		BC1F7BDD2A2FE2240024B3E3 /* PaletteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC82A2FE2240024B3E3 /* PaletteBuilder.swift */; };
 		BC1F7BE22A30F9400024B3E3 /* SubtaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BE12A30F9400024B3E3 /* SubtaskViewController.swift */; };
+		BC2A7BDC2ABF442F00335654 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC2A7BDB2ABF442F00335654 /* Realm */; };
+		BC2A7BDE2ABF442F00335654 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC2A7BDD2ABF442F00335654 /* RealmSwift */; };
 		BC9516522A2B9E5C00FBE6C5 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */; };
 		BCAD29D02A1BD3EC004F7C50 /* UIColor Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAD29CF2A1BD3EC004F7C50 /* UIColor Extensions.swift */; };
 		BCB69A612A19219200CC221A /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB69A602A19219200CC221A /* NewTaskViewController.swift */; };
@@ -79,6 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC2A7BDE2ABF442F00335654 /* RealmSwift in Frameworks */,
+				BC2A7BDC2ABF442F00335654 /* Realm in Frameworks */,
 				BC9516522A2B9E5C00FBE6C5 /* MCEmojiPicker in Frameworks */,
 				BC1B258F2A7058AB00781AAD /* ColorKit in Frameworks */,
 			);
@@ -199,6 +203,8 @@
 			packageProductDependencies = (
 				BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */,
 				BC1B258E2A7058AB00781AAD /* ColorKit */,
+				BC2A7BDB2ABF442F00335654 /* Realm */,
+				BC2A7BDD2ABF442F00335654 /* RealmSwift */,
 			);
 			productName = VisualScheduleApp;
 			productReference = BCE8342A2A041D550098AC7E /* VisualScheduleApp.app */;
@@ -231,6 +237,7 @@
 			packageReferences = (
 				BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
 				BC1B258D2A7058AB00781AAD /* XCRemoteSwiftPackageReference "ColorKit" */,
+				BC2A7BDA2ABF442F00335654 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = BCE8342B2A041D550098AC7E /* Products */;
 			projectDirPath = "";
@@ -520,6 +527,14 @@
 				kind = branch;
 			};
 		};
+		BC2A7BDA2ABF442F00335654 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BC9516502A2B9E5C00FBE6C5 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
@@ -535,6 +550,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC1B258D2A7058AB00781AAD /* XCRemoteSwiftPackageReference "ColorKit" */;
 			productName = ColorKit;
+		};
+		BC2A7BDB2ABF442F00335654 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC2A7BDA2ABF442F00335654 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		BC2A7BDD2ABF442F00335654 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC2A7BDA2ABF442F00335654 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		BC9516512A2B9E5C00FBE6C5 /* MCEmojiPicker */ = {
 			isa = XCSwiftPackageProductDependency;
