@@ -8,19 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BC1B258F2A7058AB00781AAD /* ColorKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC1B258E2A7058AB00781AAD /* ColorKit */; };
-		BC1F7BD12A2FE2240024B3E3 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BBC2A2FE2240024B3E3 /* PriorityQueue.swift */; };
-		BC1F7BD22A2FE2240024B3E3 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BBD2A2FE2240024B3E3 /* Heap.swift */; };
-		BC1F7BD32A2FE2240024B3E3 /* CountedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BBE2A2FE2240024B3E3 /* CountedSet.swift */; };
-		BC1F7BD42A2FE2240024B3E3 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BBF2A2FE2240024B3E3 /* Palette.swift */; };
-		BC1F7BD52A2FE2240024B3E3 /* PaletteSwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC02A2FE2240024B3E3 /* PaletteSwatch.swift */; };
-		BC1F7BD62A2FE2240024B3E3 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC12A2FE2240024B3E3 /* Target.swift */; };
-		BC1F7BD72A2FE2240024B3E3 /* TargetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC22A2FE2240024B3E3 /* TargetBuilder.swift */; };
-		BC1F7BD82A2FE2240024B3E3 /* PaletteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC32A2FE2240024B3E3 /* PaletteFilter.swift */; };
-		BC1F7BD92A2FE2240024B3E3 /* ColorCutQuantizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC42A2FE2240024B3E3 /* ColorCutQuantizer.swift */; };
-		BC1F7BDA2A2FE2240024B3E3 /* ColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC52A2FE2240024B3E3 /* ColorConverter.swift */; };
-		BC1F7BDB2A2FE2240024B3E3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC62A2FE2240024B3E3 /* Color.swift */; };
-		BC1F7BDC2A2FE2240024B3E3 /* UIImage+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC72A2FE2240024B3E3 /* UIImage+Palette.swift */; };
-		BC1F7BDD2A2FE2240024B3E3 /* PaletteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BC82A2FE2240024B3E3 /* PaletteBuilder.swift */; };
 		BC1F7BE22A30F9400024B3E3 /* SubtaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F7BE12A30F9400024B3E3 /* SubtaskViewController.swift */; };
 		BC2A7BDC2ABF442F00335654 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC2A7BDB2ABF442F00335654 /* Realm */; };
 		BC2A7BDE2ABF442F00335654 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC2A7BDD2ABF442F00335654 /* RealmSwift */; };
@@ -43,19 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BC1F7BBC2A2FE2240024B3E3 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
-		BC1F7BBD2A2FE2240024B3E3 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
-		BC1F7BBE2A2FE2240024B3E3 /* CountedSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountedSet.swift; sourceTree = "<group>"; };
-		BC1F7BBF2A2FE2240024B3E3 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
-		BC1F7BC02A2FE2240024B3E3 /* PaletteSwatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteSwatch.swift; sourceTree = "<group>"; };
-		BC1F7BC12A2FE2240024B3E3 /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
-		BC1F7BC22A2FE2240024B3E3 /* TargetBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetBuilder.swift; sourceTree = "<group>"; };
-		BC1F7BC32A2FE2240024B3E3 /* PaletteFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteFilter.swift; sourceTree = "<group>"; };
-		BC1F7BC42A2FE2240024B3E3 /* ColorCutQuantizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCutQuantizer.swift; sourceTree = "<group>"; };
-		BC1F7BC52A2FE2240024B3E3 /* ColorConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorConverter.swift; sourceTree = "<group>"; };
-		BC1F7BC62A2FE2240024B3E3 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		BC1F7BC72A2FE2240024B3E3 /* UIImage+Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Palette.swift"; sourceTree = "<group>"; };
-		BC1F7BC82A2FE2240024B3E3 /* PaletteBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteBuilder.swift; sourceTree = "<group>"; };
 		BC1F7BE12A30F9400024B3E3 /* SubtaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskViewController.swift; sourceTree = "<group>"; };
 		BCAD29CF2A1BD3EC004F7C50 /* UIColor Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor Extensions.swift"; sourceTree = "<group>"; };
 		BCB69A602A19219200CC221A /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
@@ -91,42 +65,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC1F7BB42A2FE2240024B3E3 /* Palette */ = {
-			isa = PBXGroup;
-			children = (
-				BC1F7BBA2A2FE2240024B3E3 /* Source */,
-			);
-			path = Palette;
-			sourceTree = "<group>";
-		};
-		BC1F7BBA2A2FE2240024B3E3 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				BC1F7BBB2A2FE2240024B3E3 /* Data Structures */,
-				BC1F7BBF2A2FE2240024B3E3 /* Palette.swift */,
-				BC1F7BC02A2FE2240024B3E3 /* PaletteSwatch.swift */,
-				BC1F7BC12A2FE2240024B3E3 /* Target.swift */,
-				BC1F7BC22A2FE2240024B3E3 /* TargetBuilder.swift */,
-				BC1F7BC32A2FE2240024B3E3 /* PaletteFilter.swift */,
-				BC1F7BC42A2FE2240024B3E3 /* ColorCutQuantizer.swift */,
-				BC1F7BC52A2FE2240024B3E3 /* ColorConverter.swift */,
-				BC1F7BC62A2FE2240024B3E3 /* Color.swift */,
-				BC1F7BC72A2FE2240024B3E3 /* UIImage+Palette.swift */,
-				BC1F7BC82A2FE2240024B3E3 /* PaletteBuilder.swift */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		BC1F7BBB2A2FE2240024B3E3 /* Data Structures */ = {
-			isa = PBXGroup;
-			children = (
-				BC1F7BBC2A2FE2240024B3E3 /* PriorityQueue.swift */,
-				BC1F7BBD2A2FE2240024B3E3 /* Heap.swift */,
-				BC1F7BBE2A2FE2240024B3E3 /* CountedSet.swift */,
-			);
-			path = "Data Structures";
-			sourceTree = "<group>";
-		};
 		BCB69A662A192E5500CC221A /* Task List + Storage */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				BCD827E62A70415A00419B31 /* UIImageColors.swift */,
-				BC1F7BB42A2FE2240024B3E3 /* Palette */,
 				BCE834312A041D550098AC7E /* TaskListViewController.swift */,
 				BCE834422A041EC50098AC7E /* TaskCell.swift */,
 				BCF0D5D12A09491E009D7CC5 /* SubtaskCell.swift */,
@@ -267,29 +204,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCAD29D02A1BD3EC004F7C50 /* UIColor Extensions.swift in Sources */,
-				BC1F7BD22A2FE2240024B3E3 /* Heap.swift in Sources */,
 				BCB69A682A192E7A00CC221A /* Task Storage Service.swift in Sources */,
 				BCD827E72A70415A00419B31 /* UIImageColors.swift in Sources */,
 				BCE834432A041EC50098AC7E /* TaskCell.swift in Sources */,
-				BC1F7BD92A2FE2240024B3E3 /* ColorCutQuantizer.swift in Sources */,
 				BC1F7BE22A30F9400024B3E3 /* SubtaskViewController.swift in Sources */,
-				BC1F7BD72A2FE2240024B3E3 /* TargetBuilder.swift in Sources */,
 				BCB69A652A19253400CC221A /* EditTaskViewController.swift in Sources */,
 				BCB69A612A19219200CC221A /* NewTaskViewController.swift in Sources */,
-				BC1F7BD62A2FE2240024B3E3 /* Target.swift in Sources */,
-				BC1F7BD12A2FE2240024B3E3 /* PriorityQueue.swift in Sources */,
-				BC1F7BDA2A2FE2240024B3E3 /* ColorConverter.swift in Sources */,
-				BC1F7BD52A2FE2240024B3E3 /* PaletteSwatch.swift in Sources */,
 				BCE834322A041D550098AC7E /* TaskListViewController.swift in Sources */,
-				BC1F7BDB2A2FE2240024B3E3 /* Color.swift in Sources */,
-				BC1F7BDC2A2FE2240024B3E3 /* UIImage+Palette.swift in Sources */,
-				BC1F7BD82A2FE2240024B3E3 /* PaletteFilter.swift in Sources */,
 				BCE834452A041FEA0098AC7E /* Task.swift in Sources */,
-				BC1F7BD32A2FE2240024B3E3 /* CountedSet.swift in Sources */,
 				BCE8342E2A041D550098AC7E /* AppDelegate.swift in Sources */,
 				BCE834302A041D550098AC7E /* SceneDelegate.swift in Sources */,
-				BC1F7BD42A2FE2240024B3E3 /* Palette.swift in Sources */,
-				BC1F7BDD2A2FE2240024B3E3 /* PaletteBuilder.swift in Sources */,
 				BCF0D5D22A09491E009D7CC5 /* SubtaskCell.swift in Sources */,
 				BCB69A632A1922FB00CC221A /* RoutinesViewController.swift in Sources */,
 			);
@@ -447,6 +371,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -479,6 +404,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
