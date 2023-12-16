@@ -49,7 +49,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
             
             if let task { prioritySwitch.isOn = task.isActive }
             nameField.text = task?.title
-            descriptionField.text = task?.description
+            descriptionField.text = task?.fullDescription
             emojiButton.setTitle(task?.symbol, for: .normal)
             
             // TODO: make func
@@ -129,20 +129,30 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
         case .edit:
             guard let task else { return }
             let updatedTask = Task(symbol: emojiButton.title(for: .normal) ?? task.symbol,
-                                   title: nameText, description: descriptionField.text,
-                                   color: color, isActive: prioritySwitch.isOn, isCurrent: task.isCurrent,
-                                   subtasks: taskSubtasks,
+                                   title: nameText,
+                                   fullDescription: descriptionField.text,
+                                   color: color.rawValue,
+                                   subtaks: taskSubtasks,
+                                   isActive: prioritySwitch.isOn,
+                                   isCurrent: task.isCurrent,
                                    colorLight: colorLight,
-                                   colorDark: colorDark, isExpanded: task.isExpanded)
+                                   colorDark: colorDark,
+                                   creationDate: task.creationDate,
+                                   isExpanded: task.isExpanded)
             storage.replace(taskNumber: taskIndex, with: updatedTask)
         case .add:
                 
             let newTask = Task(symbol: emojiButton.title(for: .normal) ?? emojiList[Int.random(in: 0..<emojiList.count)],
-                               title: nameText, description: descriptionField.text,
-                               color: color, isActive: prioritySwitch.isOn,
-                               subtasks: taskSubtasks,
+                               title: nameText,
+                               fullDescription: descriptionField.text,
+                               color: color.rawValue,
+                               subtaks: taskSubtasks,
+                               isActive: prioritySwitch.isOn,
+                               isCurrent: true,
                                colorLight: colorLight,
-                               colorDark: colorDark)
+                               colorDark: colorDark,
+                               creationDate: Date(),
+                               isExpanded: true)
             storage.add(task: newTask)
         }
         navigationController?.popViewController(animated: true)
@@ -164,7 +174,7 @@ class NewTaskViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func colorChanged(_ sender: Any) {
-        var color: UIColor
+        let color: UIColor
         
         switch colorSelector.selectedSegmentIndex {
         case 0:

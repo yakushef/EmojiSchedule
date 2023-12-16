@@ -213,7 +213,7 @@ class TaskCell: UITableViewCell {
         subtaskLine.isHidden = task.subtaks.isEmpty
         underline.isHidden = task.subtaks.isEmpty
         subtaskStackView.isHidden = task.subtaks.isEmpty
-        descriptionLabel.isHidden = task.description.isEmpty
+        descriptionLabel.isHidden = task.fullDescription.isEmpty
         
         subtaskTableView.reloadData()
          subtaskTableView.removeConstraints(subtaskTableView.constraints.filter { $0.firstAttribute == .height })
