@@ -81,7 +81,7 @@ extension String {
 
 extension UIColor {
     static var taskRed = { UIColor(named: "TaskRed") ?? UIColor.red }
-    static var taskMint = { UIColor(named: "TaskMint") ?? UIColor.systemMint }
+    static var taskMint = { UIColor(named: "TaskMint") ?? UIColor.systemGreen }
     
     func getEmojiColor() -> emojiColor {
         
