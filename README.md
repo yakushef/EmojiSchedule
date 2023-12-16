@@ -21,6 +21,6 @@
 <img src="https://github.com/yakushef/EmojiSchedule/blob/e7fce54674fc01416dcf8d23571c76318556d200/VisualScheduleApp/Screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20-%202023-12-16%20at%2021.56.29.png" width="250"> <img src="https://github.com/yakushef/EmojiSchedule/blob/e7fce54674fc01416dcf8d23571c76318556d200/VisualScheduleApp/Screenshots/Simulator%20Screenshot%20-%20iPhone%2015%20Pro%20-%202023-12-16%20at%2021.57.25.png" width="250">
 
 ### Как написан проект
-- Приложение выполнено с использованием фраемворков UIKit, ColorKit, MCEmojiPicker
+- Приложение выполнено с использованием библиотек UIKit, ColorKit, MCEmojiPicker
 - Архитектура MVC, для хранения данных используется Realm
 - UI сверстан на XIB и Storyboard
